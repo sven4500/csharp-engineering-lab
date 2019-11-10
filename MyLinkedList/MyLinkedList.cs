@@ -139,29 +139,20 @@ namespace Lab1
                 throw new ArgumentOutOfRangeException();
             return node;
         }
-
-        /*private Node<T> GetNodeByItem(T item)
-        {
-            var node = root;
-            while (node != null)
-            {
-                if (node.Item.Equals(item))
-                    break;
-                node = node.Next;
-            }
-            return node;
-        }*/
-
+        
         IEnumerator IEnumerable.GetEnumerator()
         {
-            throw new NotImplementedException("IEnumerable.GetEnumerator not implemented.");
-            //return null;
+            return ((IEnumerable)this).GetEnumerator();
         }
 
         IEnumerator<T> IEnumerable<T>.GetEnumerator()
         {
-            throw new NotImplementedException("IEnumerable<T>.GetEnumerator not implemented.");
-            //return null;
+            var node = root;
+            while (node != null)
+            {
+                yield return node.Item;
+                node = node.Next;
+            }
         }
 
         protected Node<T> root = null;
