@@ -59,11 +59,11 @@ namespace Lab1
 
         public void RemoveAt(int index)
         {
-            if (index > 0)
+            if (index > 0 && index < Count)
             {
                 var node = GetNodeByIndex(index - 1);
-                if (node.Next == null)
-                    throw new ArgumentOutOfRangeException();
+                if (node.Next == last)
+                    last = node;
                 node.Next = node.Next.Next;
                 Count--;
             }
@@ -72,6 +72,8 @@ namespace Lab1
                 if (root == null)
                     throw new ArgumentOutOfRangeException();
                 root = root.Next;
+                if (root == null)
+                    last = null;
                 Count--;
             }
             else

@@ -75,7 +75,7 @@ namespace Lab1
             Assert.True(list.Last.Next == null);
         }
 
-        [Category("Insert")]
+        [Category("Add")]
         [TestCase(0, true)]
         [TestCase(1, true)]
         [TestCase(10, false)]
@@ -87,7 +87,7 @@ namespace Lab1
             Assert.AreEqual(expected, list.Last == list.Root);
         }
 
-        [Category("Insert")]
+        [Category("Add")]
         [TestCase(10)]
         public void Add_VariableSizeList_ContainsEvery(int count)
         {
@@ -330,14 +330,88 @@ namespace Lab1
             Assert.AreEqual(null, list.Last);
         }
 
-        /*[Category("Insert")]
-        [TestCase(10)]
-        public void Insert_EmptyList_Count(int count)
+        [Category("this[]")]
+        [Test]
+        public void Indexer_ValueTypesEqual_True()
         {
-            var list = CreateList<object>();
+            int count = 10;
+            var list = CreateList<int>();
             for (int i = 0; i < count; ++i)
-                list.Insert(i, new object());
-            Assert.AreEqual(count, list.Count);
-        }*/
+                list.Add(i);
+            for (int i = 0; i < count; ++i)
+                Assert.AreEqual(i, list[i]);
+        }
+
+        [Category("this[]")]
+        [TestCase(0, 0)]
+        [TestCase(10, -1)]
+        [TestCase(10, 10)]
+        public void Indexer_OutOfBounds_Exception(int count, int index)
+        {
+            var list = CreateList<int>(count);
+            Assert.Throws<ArgumentOutOfRangeException>(() => { var item = list[index]; });
+        }
+
+        [Category("Insert")]
+        [TestCase(0, 0)]
+        [TestCase(10, -1)]
+        [TestCase(10, 10)]
+        public void Insert_OutOfBounds_Exception(int count, int index)
+        {
+            var list = CreateList<object>(count);
+            Assert.Throws<ArgumentOutOfRangeException>(() => { var item = list[index]; });
+        }
+
+        [Category("Insert")]
+        [Test]
+        public void Insert_OneItem_CountIncrement()
+        {
+            var list = CreateList<object>(1);
+            list.Insert(0, new object());
+            Assert.AreEqual(2, list.Count);
+        }
+
+        [Category("RemoveAt")]
+        [TestCase(1)]
+        [TestCase(2)]
+        [TestCase(10)]
+        public void RemoveAt_RootItem_CountDecrements(int count)
+        {
+            var list = CreateList<object>(count);
+            list.RemoveAt(0);
+            Assert.AreEqual(count - 1, list.Count);
+        }
+
+        [Category("RemoveAt")]
+        [TestCase(0, 0)]
+        [TestCase(1, -1)]
+        [TestCase(2, 3)]
+        public void RemoveAt_OutOfBounds_Exception(int count, int index)
+        {
+            var list = CreateList<object>(count);
+            Assert.Throws<ArgumentOutOfRangeException>(() => { list.RemoveAt(index); });
+        }
+
+        [Category("RemoveAt")]
+        [TestCase(1)]
+        [TestCase(10)]
+        public void RemoveAt_RootItem_RootChanges(int count)
+        {
+            var list = CreateList<object>(count);
+            var root = list.Root;
+            list.RemoveAt(0);
+            Assert.AreNotEqual(root, list.Root);
+        }
+
+        [Category("RemoveAt")]
+        [TestCase(1)]
+        [TestCase(10)]
+        public void RemoveAt_LastItem_LastChanges(int count)
+        {
+            var list = CreateList<object>(count);
+            var last = list.Last;
+            list.RemoveAt(count - 1);
+            Assert.AreNotEqual(last, list.Last);
+        }
     }
 }
