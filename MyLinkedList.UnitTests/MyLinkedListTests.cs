@@ -19,40 +19,42 @@ namespace Lab1
     {
         //public void Ctor_
 
+        TestList<T> CreateList<T>(int count = 0) where T: new()
+        {
+            var list = new TestList<T>();
+            for (int i = 0; i < count; ++i)
+                list.Add(new T());
+            return list;
+        }
+
         [TestCase(0)]
         [TestCase(1)]
         [TestCase(2)]
         [TestCase(10)]
         public void Add_AddItems_CountEqual(int count)
         {
-            var list = new TestList<int>();
-            for (int i = 0; i < count; ++i)
-                list.Add(i);
+            var list = CreateList<int>(count);
             Assert.AreEqual(count, list.Count);
         }
 
         [Test]
         public void Add_AddOneItem_RootNotNull()
         {
-            var list = new TestList<int>();
-            list.Add(0);
+            var list = CreateList<int>(1);
             Assert.False(list.Root == null);
         }
         
         [Test]
         public void Add_AddOneItem_LastEqualRoot()
         {
-            var list = new TestList<int>();
-            list.Add(0);
+            var list = CreateList<int>(1);
             Assert.True(list.Last == list.Root);
         }
 
         [Test]
         public void Add_AddManyItems_LastNotEqualRoot()
         {
-            var list = new TestList<int>();
-            list.Add(0);
-            list.Add(1);
+            var list = CreateList<int>(2);
             Assert.False(list.Last == list.Root);
         }
 
@@ -61,10 +63,44 @@ namespace Lab1
         [TestCase(10)]
         public void Add_AddManyItems_LastNextAlwaysNull(int count)
         {
-            var list = new TestList<int>();
-            for (int i = 0; i < count; ++i)
-                list.Add(i);
+            var list = CreateList<int>(count);
             Assert.True(list.Last.Next == null);
+        }
+
+        [TestCase(0)]
+        [TestCase(10)]
+        public void Clear_VariableListSize_RootEqualNull(int count)
+        {
+            var list = CreateList<int>(count);
+            list.Clear();
+            Assert.True(list.Root == null);
+        }
+
+        [TestCase(0)]
+        [TestCase(10)]
+        public void Clear_VariableListSize_CountEqualZero(int count)
+        {
+            var list = CreateList<int>(count);
+            list.Clear();
+            Assert.AreEqual(0, list.Count);
+        }
+
+        [Test]
+        public void Contains_ExistingItem_True()
+        {
+            var list = CreateList<int>();
+            list.Add(0);
+            list.Add(1);
+            Assert.AreEqual(true, list.Contains(1));
+        }
+
+        [Test]
+        public void Contains_NotExistingItem_False()
+        {
+            var list = CreateList<int>();
+            list.Add(0);
+            list.Add(1);
+            Assert.AreEqual(false, list.Contains(2));
         }
     }
 }

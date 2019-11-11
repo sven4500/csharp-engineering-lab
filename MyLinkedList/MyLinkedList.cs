@@ -31,7 +31,8 @@ namespace Lab1
 
         public void Clear()
         {
-            root = last = null;
+            root = null;
+            last = null;
             Count = 0;
         }
 
