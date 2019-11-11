@@ -54,6 +54,7 @@ namespace Lab1
             var newNode = new Node<T>(item);
             newNode.Next = node.Next;
             node.Next = newNode;
+            ++Count;
         }
 
         public void RemoveAt(int index)
@@ -81,18 +82,11 @@ namespace Lab1
 
         public int IndexOf(T item)
         {
-            int index = -1;
-            if (root == null)
-                return index;
             var node = root;
-            do
-            {
+            for (int index = 0; node != null; ++index, node = node.Next)
                 if (node.Item.Equals(item))
                     return index;
-                ++index;
-            }
-            while ((node = node.Next) != null);
-            return index;
+            return -1;
         }
 
         public bool Remove(T item)
