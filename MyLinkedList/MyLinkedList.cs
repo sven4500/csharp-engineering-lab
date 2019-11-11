@@ -92,23 +92,35 @@ namespace Lab1
         public bool Remove(T item)
         {
             Node<T> node = root, previousNode = null;
+
             while (node != null)
             {
                 if (node.Item.Equals(item))
                     break;
+
                 previousNode = node;
                 node = node.Next;
             }
+
             if (node == null)
+            {
                 return false;
+            }
+
             if (previousNode != null)
             {
                 previousNode.Next = node.Next;
+                if (node == last)
+                    last = previousNode;
             }
             else
             {
                 root = node.Next;
+                if (root == null)
+                    last = null;
             }
+
+            --Count;
             return true;
         }
 
@@ -126,8 +138,7 @@ namespace Lab1
                 node.Item = value;
             }
         }
-
-        // Возможно это всё нужно добавить в метод this[].
+        
         private Node<T> GetNodeByIndex(int index)
         {
             var node = root;

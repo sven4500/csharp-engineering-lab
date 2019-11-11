@@ -39,36 +39,32 @@ namespace Lab1
         [TestCase(1)]
         [TestCase(2)]
         [TestCase(10)]
-        public void Add_AddItems_CountEqual(int count)
+        public void Add_MultipleItems_CountEqual(int count)
         {
             var list = CreateList<int>(count);
             Assert.AreEqual(count, list.Count);
         }
 
         [Category("Add")]
-        [Test]
-        public void Add_AddOneItem_RootNotNull()
+        [TestCase(0, false)]
+        [TestCase(1, true)]
+        [TestCase(2, true)]
+        public void Add_MultipleItems_RootNotNull(int count, bool expected)
         {
-            var list = CreateList<int>(1);
-            Assert.False(list.Root == null);
+            var list = CreateList<int>(count);
+            Assert.AreEqual(expected, list.Root != null);
         }
-
+        
         [Category("Add")]
-        [Test]
-        public void Add_AddOneItem_LastEqualRoot()
+        [TestCase(0, true)]
+        [TestCase(1, true)]
+        [TestCase(2, false)]
+        public void Add_MultipleItems_LastEqualRoot(int count, bool expected)
         {
-            var list = CreateList<int>(1);
-            Assert.True(list.Last == list.Root);
+            var list = CreateList<int>(count);
+            Assert.AreEqual(expected, list.Last == list.Root);
         }
-
-        [Category("Add")]
-        [Test]
-        public void Add_AddManyItems_LastNotEqualRoot()
-        {
-            var list = CreateList<int>(2);
-            Assert.False(list.Last == list.Root);
-        }
-
+        
         [Category("Add")]
         [TestCase(1)]
         [TestCase(2)]
@@ -246,9 +242,97 @@ namespace Lab1
             Assert.False(list.Contains(count));
         }
 
+        [Category("CopyTo")]
+        [TestCase(0, 0)]
+        [TestCase(0, 5)]
+        [TestCase(10, 0)]
+        [TestCase(10, 5)]
+        public void CopyTo_From_ArrayContainsListElements(int count, int offset)
+        {
+            var list = CreateList<int>();
+            int[] arr = new int[1 + 2 * count];
+            for (int i = 0; i < count; ++i)
+                list.Add(i);
+            list.CopyTo(arr, offset);
+            for (int i = 0; i < count; ++i)
+                Assert.AreEqual(i, arr[offset + i]);
+        }
+
+        [Category("Remove")]
+        [TestCase(0, 0, false)]
+        [TestCase(10, 9, true)]
+        [TestCase(10, 10, false)]
+        public void Remove_ExistingItem_True(int count, int item, bool expected)
+        {
+            var list = CreateList<int>();
+            for (int i = 0; i < count; ++i)
+                list.Add(i);
+            Assert.AreEqual(expected, list.Remove(item));
+        }
+
+        [Category("Remove")]
+        [TestCase(0, 0)]
+        [TestCase(10, 9)]
+        [TestCase(10, 10)]
+        public void Remove_ExistingItem_CountDecrements(int count, int item)
+        {
+            var list = CreateList<int>();
+            for (int i = 0; i < count; ++i)
+                list.Add(i);
+            if (list.Remove(item))
+                --count;
+            Assert.AreEqual(count, list.Count);
+        }
+
+        [Category("Remove")]
+        [TestCase(10, 8, false)]
+        [TestCase(10, 9, true)]
+        [TestCase(10, 10, false)]
+        public void Remove_LastItem_LastChanges(int count, int item, bool change)
+        {
+            var list = CreateList<int>();
+            for (int i = 0; i < count; ++i)
+                list.Add(i);
+            var last = list.Last;
+            list.Remove(item);
+            Assert.AreEqual(change, last != list.Last);
+        }
+
+        [Category("Remove")]
+        [TestCase(0, 0, false)]
+        [TestCase(10, 0, true)]
+        [TestCase(10, 1, false)]
+        public void Remove_RootItem_RootChanges(int count, int item, bool change)
+        {
+            var list = CreateList<int>();
+            for (int i = 0; i < count; ++i)
+                list.Add(i);
+            var root = list.Root;
+            list.Remove(item);
+            Assert.AreEqual(change, root != list.Root);
+        }
+
+        [Category("Remove")]
+        [Test]
+        public void Remove_OnlyRootItem_RootNull()
+        {
+            var list = CreateList<int>(1);
+            list.Remove(0);
+            Assert.AreEqual(null, list.Root);
+        }
+
+        [Category("Remove")]
+        [Test]
+        public void Remove_OnlyRootItem_LastNull()
+        {
+            var list = CreateList<int>(1);
+            list.Remove(0);
+            Assert.AreEqual(null, list.Last);
+        }
+
         /*[Category("Insert")]
         [TestCase(10)]
-        public void Insert_NotEmpty_Count(int count)
+        public void Insert_EmptyList_Count(int count)
         {
             var list = CreateList<object>();
             for (int i = 0; i < count; ++i)
