@@ -7,7 +7,7 @@ using System.Collections;
 
 namespace Lab1
 {
-    class MyLinkedList<T>: IList<T>
+    public class MyLinkedList<T>: IList<T>
     {
         public bool IsReadOnly { get { return false; } }
         public int Count { get; protected set; }
@@ -17,9 +17,15 @@ namespace Lab1
             // У нового Node следующий элемент всегда null.
             var node = new Node<T>(item);
             if (root == null)
-                root = last = node;
+            {
+                root = node;
+                last = root;
+            }
             else
+            {
                 last.Next = node;
+                last = last.Next;
+            }
             Count++;
         }
 
