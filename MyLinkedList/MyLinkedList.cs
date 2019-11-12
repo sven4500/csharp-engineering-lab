@@ -153,13 +153,14 @@ namespace Lab1
                 throw new ArgumentOutOfRangeException();
             return node;
         }
-        
+
+        // https://stackoverflow.com/questions/1272673/obtain-generic-enumerator-from-an-array
         IEnumerator IEnumerable.GetEnumerator()
         {
-            return ((IEnumerable)this).GetEnumerator();
+            return ((IEnumerable<T>)this).GetEnumerator();
         }
 
-        IEnumerator<T> IEnumerable<T>.GetEnumerator()
+        public IEnumerator<T> IEnumerable<T>.GetEnumerator()
         {
             var node = root;
             while (node != null)
