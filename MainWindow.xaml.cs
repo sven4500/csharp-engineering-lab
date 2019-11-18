@@ -15,14 +15,30 @@ using System.Windows.Shapes;
 
 namespace Lab3
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow: Window
     {
+        protected void MakeAlphabeticIndex()
+        {
+            //var grid = new Grid();
+            //AlphabeticStack.Children.Add(grid);
+            AlphabeticStack.Orientation = Orientation.Horizontal;
+
+            for (char beginChar = 'А', endChar = 'Я', indexChar = beginChar; indexChar <= endChar; ++indexChar)
+            {
+                var button = new Button();
+                //button.VerticalAlignment = VerticalAlignment.Top;
+                //button.HorizontalAlignment = HorizontalAlignment.Left;
+                //button.HorizontalAlignment = FigureHorizontalAnchor.ColumnLeft;
+                button.Content = indexChar;
+                button.Name = "Index" + indexChar;
+                AlphabeticStack.Children.Add(button);
+            }
+        }
+
         public MainWindow()
         {
             InitializeComponent();
+            MakeAlphabeticIndex();
         }
     }
 }
