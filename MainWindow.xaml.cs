@@ -19,19 +19,22 @@ namespace Lab3
     {
         protected void MakeAlphabeticIndex()
         {
-            //var grid = new Grid();
-            //AlphabeticStack.Children.Add(grid);
-            AlphabeticStack.Orientation = Orientation.Horizontal;
+            //AlphabeticGrid.ShowGridLines = true;
+            //AlphabeticGrid.Background = new SolidColorBrush(Colors.Aqua);
 
             for (char beginChar = 'А', endChar = 'Я', indexChar = beginChar; indexChar <= endChar; ++indexChar)
             {
+                // Добавляем новый столбец.
+                var definition = new ColumnDefinition();
+                definition.Width = new GridLength(1, GridUnitType.Star);
+                AlphabeticGrid.ColumnDefinitions.Add(definition);
+
                 var button = new Button();
-                //button.VerticalAlignment = VerticalAlignment.Top;
-                //button.HorizontalAlignment = HorizontalAlignment.Left;
-                //button.HorizontalAlignment = FigureHorizontalAnchor.ColumnLeft;
                 button.Content = indexChar;
                 button.Name = "Index" + indexChar;
-                AlphabeticStack.Children.Add(button);
+                Grid.SetColumn(button, indexChar - beginChar);
+
+                AlphabeticGrid.Children.Add(button);
             }
         }
 
