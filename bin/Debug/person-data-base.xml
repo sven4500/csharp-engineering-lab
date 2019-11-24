@@ -1,0 +1,9 @@
+<?xml version="1.0" standalone="yes"?>
+<PersonList>
+  <Person Name="Василий Пупкин" Comment="Лучший друг" />
+  <Person Name="Иванов" />
+  <Person Name="Петров" />
+  <Person Name="R2" Id="104" />
+  <Person Name="Children of Heaven" />
+  <Person Name="Привет" />
+</PersonList>
