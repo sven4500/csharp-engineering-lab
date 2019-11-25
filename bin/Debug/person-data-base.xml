@@ -1,9 +1,4 @@
 <?xml version="1.0" standalone="yes"?>
 <PersonList>
-  <Person Name="Василий Пупкин" Comment="Лучший друг" />
-  <Person Name="Иванов" />
-  <Person Name="Петров" />
-  <Person Name="R2" Id="104" />
-  <Person Name="Children of Heaven" />
-  <Person Name="Привет" />
+  <Person Name="Василий Пупкин" DateOfBirth="1/1/1993" ContactNumber="+79641234567" PersonalContactNumber="+79657895163" EmailAddress="vasily.pupkin@gmail.com" SkypeAddress="Vasily1993" Comment="Лучший друг" />
 </PersonList>

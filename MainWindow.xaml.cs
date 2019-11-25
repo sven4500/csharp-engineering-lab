@@ -29,6 +29,8 @@ namespace Lab3
         void BindXml()
         {
             xmlDataSet.ReadXml(xmlPath);
+            if (xmlDataSet.Tables.Count == 0)
+                xmlDataSet.Tables.Add("PersonList");
             dataView = new DataView(xmlDataSet.Tables[0]);
             PersonDataList.ItemsSource = dataView;
         }
