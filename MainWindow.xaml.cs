@@ -15,6 +15,9 @@ using System.Windows.Shapes;
 using System.Collections.ObjectModel;
 using System.Data; // DataSet
 using System.ComponentModel; // CancelEventArgs
+using System.Reactive.Linq;
+using System.Reactive.Disposables;
+using System.Reactive; // EventPattern
 
 namespace Lab3
 {
@@ -22,8 +25,26 @@ namespace Lab3
     {
         string xmlPath = "person-data-base.xml";
         DataSet xmlDataSet = new DataSet();
-        DataView dataView;
+
+        // Две коллекции. Исходная и наблюдаемая в зависимости от выборки.
+        Collection<PersonData> personCollection;
+        ObservableCollection<PersonData> personSelection;
         
+        IObservable<EventPattern<RoutedEventArgs>> buttonClick;
+
+        void OnButtonClick(EventPattern<RoutedEventArgs> arg)
+        {
+            Button but = arg.Sender as Button;
+            if (but == null)
+                return;
+            QueryInput.Text += but.Content.ToString().ToLower();
+        }
+
+        void OnQuery(List<PersonData> collection)
+        {
+            int a = 0;
+        }
+
         // https://stackoverflow.com/questions/46849221/how-to-read-an-xml-file-using-xmldataprovider-in-wpf-c-sharp
         // https://stackoverflow.com/questions/27179373/xml-binding-to-datagrid-in-wpf
         void BindXml()
@@ -31,13 +52,34 @@ namespace Lab3
             xmlDataSet.ReadXml(xmlPath);
             if (xmlDataSet.Tables.Count == 0)
                 xmlDataSet.Tables.Add("PersonList");
-            dataView = new DataView(xmlDataSet.Tables[0]);
-            PersonDataList.ItemsSource = dataView;
+
+            // Сериализуем данные. Сперва превращаем в List<> а почле в
+            // Collection<> и ObservableCollection<>.
+            var list = xmlDataSet.Tables[0].AsEnumerable()
+                .Select(dataRow =>
+                {
+                    return new PersonData
+                    {
+                        Name = dataRow.Field<string>("Name"),
+                        //DateOfBirth = dataRow.Field<DateTime>("DateOfBirth")
+                        ContactNumber = dataRow.Field<string>("ContactNumber"),
+                        PersonalContactNumber = dataRow.Field<string>("PersonalContactNumber"),
+                        EmailAddress = dataRow.Field<string>("EmailAddress"),
+                        SkypeAddress = dataRow.Field<string>("SkypeAddress"),
+                        Comment = dataRow.Field<string>("Comment")
+                    };
+                })
+                .ToList();
+
+            personCollection = new Collection<PersonData>(list);
+            personSelection = new ObservableCollection<PersonData>(list);
+
+            PersonDataList.ItemsSource = personSelection;
         }
 
         private void OnClosing(object sender, EventArgs e)
         {
-            xmlDataSet.WriteXml(xmlPath);
+            //xmlDataSet.WriteXml(xmlPath);
         }
 
         protected void MakeAlphabeticIndex()
@@ -51,22 +93,29 @@ namespace Lab3
                 var definition = new ColumnDefinition();
                 definition.Width = new GridLength(1, GridUnitType.Star);
                 AlphabeticGrid.ColumnDefinitions.Add(definition);
-
+                
                 var button = new Button();
                 button.Content = indexChar;
                 button.Name = "Index" + indexChar;
-                //button.Click +=
                 Grid.SetColumn(button, indexChar - beginChar);
 
                 AlphabeticGrid.Children.Add(button);
+
+                // Создали наблюдаемую переменную. Теперь когда вызовем
+                // Subscribe наблюдателя, то будет вызвна лямбда.
+                buttonClick = Observable.FromEventPattern<RoutedEventHandler, RoutedEventArgs>(h => button.Click += h, h => button.Click -= h);
+                buttonClick.Subscribe(OnButtonClick);
             }
         }
 
         void RemoveItem(object sender, EventArgs e)
         {
-            var index = PersonDataList.Items.IndexOf(PersonDataList.SelectedItem);
-            if (index >= 0 && index < dataView.Count)
-                dataView.Delete(index);
+            PersonData person = PersonDataList.SelectedItem as PersonData;
+            if (person != null)
+            {
+                personCollection.Remove(person);
+                personSelection.Remove(person);
+            }
         }
 
         public MainWindow()
@@ -74,6 +123,29 @@ namespace Lab3
             InitializeComponent();
             MakeAlphabeticIndex();
             BindXml();
+
+            var textInput = Observable.FromEventPattern<TextChangedEventHandler, TextChangedEventArgs>(h => QueryInput.TextChanged += h, h => QueryInput.TextChanged -= h);
+
+            IObservable<string> textQuery =
+                from evt in textInput
+                let obj = evt.Sender as TextBox
+                let text = obj.Text
+                select text;
+
+            /*IObservable<PersonData> personList =
+                from query in textQuery
+                from person in personCollection
+                where person.Name.Contains(query) || person.EmailAddress.Contains(query) || person.SkypeAddress.Contains(query)
+                select person;*/
+
+            IObservable<List<PersonData>> personList =
+                from query in textQuery
+                from person in personCollection
+                let isSatisfying = person.Name.Contains(query) || person.EmailAddress.Contains(query) || person.SkypeAddress.Contains(query)
+                group person by isSatisfying into collection
+                select collection.ToList() as List<PersonData>;
+
+            personList.Subscribe(OnQuery);
         }
     }
 }

@@ -8,6 +8,16 @@ namespace Lab3
 {
     public class PersonData
     {
+        /*public PersonData()
+        {
+            Name = "";
+            ContactNumber = "";
+            PersonalContactNumber = "";
+            EmailAddress = "";
+            SkypeAddress = "";
+            Comment = "";
+        }*/
+
         public string Name { get; set; }
         public DateTime DateOfBirth { get; set; }
         public string ContactNumber { get; set; }
