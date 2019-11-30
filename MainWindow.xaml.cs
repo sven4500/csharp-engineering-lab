@@ -23,44 +23,21 @@ namespace Lab3
 {
     public partial class MainWindow: Window
     {
-        string xmlPath = "person-data-base.xml";
+        static string xmlPath = "person-data-base.xml";
         DataSet xmlDataSet = new DataSet();
 
         // Две коллекции. Исходная и наблюдаемая в зависимости от выборки.
-        Collection<PersonData> personCollection;
+        ObservableCollection<PersonData> personCollection;
         ObservableCollection<PersonData> personSelection;
-        
-        IObservable<EventPattern<RoutedEventArgs>> buttonClick;
 
-        void OnButtonClick(EventPattern<RoutedEventArgs> arg)
+        static List<PersonData> Serialize(DataSet xmlDataSet)
         {
-            Button but = arg.Sender as Button;
-            if (but == null)
-                return;
-            QueryInput.Text += but.Content.ToString().ToLower();
-        }
-
-        void OnQuery(List<PersonData> collection)
-        {
-            int a = 0;
-        }
-
-        // https://stackoverflow.com/questions/46849221/how-to-read-an-xml-file-using-xmldataprovider-in-wpf-c-sharp
-        // https://stackoverflow.com/questions/27179373/xml-binding-to-datagrid-in-wpf
-        void BindXml()
-        {
-            xmlDataSet.ReadXml(xmlPath);
-            if (xmlDataSet.Tables.Count == 0)
-                xmlDataSet.Tables.Add("PersonList");
-
-            // Сериализуем данные. Сперва превращаем в List<> а почле в
-            // Collection<> и ObservableCollection<>.
-            var list = xmlDataSet.Tables[0].AsEnumerable()
+            return xmlDataSet.Tables[0].AsEnumerable()
                 .Select(dataRow =>
                 {
                     return new PersonData
                     {
-                        Name = dataRow.Field<string>("Name"),
+                        Name = dataRow.IsNull("Name") ? "" : dataRow.Field<string>("Name"),
                         //DateOfBirth = dataRow.Field<DateTime>("DateOfBirth")
                         ContactNumber = dataRow.Field<string>("ContactNumber"),
                         PersonalContactNumber = dataRow.Field<string>("PersonalContactNumber"),
@@ -70,11 +47,48 @@ namespace Lab3
                     };
                 })
                 .ToList();
+        }
 
-            personCollection = new Collection<PersonData>(list);
+        /*void Deserialize(List<PersonData> list)
+        { }*/
+
+        // https://stackoverflow.com/questions/46849221/how-to-read-an-xml-file-using-xmldataprovider-in-wpf-c-sharp
+        // https://stackoverflow.com/questions/27179373/xml-binding-to-datagrid-in-wpf
+        void BindXml()
+        {
+            xmlDataSet.ReadXml(xmlPath);
+
+            if (xmlDataSet.Tables.Count == 0)
+                xmlDataSet.Tables.Add("PersonList");
+
+            // Сериализуем данные. Сперва превращаем в List<> а после в
+            // Collection<> и ObservableCollection<>.
+            var list = Serialize(xmlDataSet);
+
+            personCollection = new ObservableCollection<PersonData>(list);
             personSelection = new ObservableCollection<PersonData>(list);
 
             PersonDataList.ItemsSource = personSelection;
+
+            var textInput = Observable.FromEventPattern<TextChangedEventHandler, TextChangedEventArgs>(h => QueryInput.TextChanged += h, h => QueryInput.TextChanged -= h);
+
+            var textQuery =
+                from evt in textInput
+                let obj = evt.Sender as TextBox
+                let text = obj.Text
+                select text;
+
+            textQuery.Subscribe(o => personSelection.Clear());
+
+            // https://stackoverflow.com/questions/25296270/observable-where-with-async-predicate
+            var personObservable =
+                from query in textQuery
+                from person in personCollection
+                let isSatisfying = person.Name.ToLower().Contains(query.ToLower())
+                where isSatisfying == true
+                select person;
+
+            personObservable.Subscribe(o => personSelection.Add(o));
         }
 
         private void OnClosing(object sender, EventArgs e)
@@ -103,8 +117,15 @@ namespace Lab3
 
                 // Создали наблюдаемую переменную. Теперь когда вызовем
                 // Subscribe наблюдателя, то будет вызвна лямбда.
-                buttonClick = Observable.FromEventPattern<RoutedEventHandler, RoutedEventArgs>(h => button.Click += h, h => button.Click -= h);
-                buttonClick.Subscribe(OnButtonClick);
+                var buttonClick = Observable.FromEventPattern<RoutedEventHandler, RoutedEventArgs>(h => button.Click += h, h => button.Click -= h);
+
+                buttonClick.Subscribe(arg =>
+                {
+                    Button but = arg.Sender as Button;
+                    if (but == null)
+                        return;
+                    QueryInput.Text += but.Content.ToString().ToLower();
+                });
             }
         }
 
@@ -123,29 +144,6 @@ namespace Lab3
             InitializeComponent();
             MakeAlphabeticIndex();
             BindXml();
-
-            var textInput = Observable.FromEventPattern<TextChangedEventHandler, TextChangedEventArgs>(h => QueryInput.TextChanged += h, h => QueryInput.TextChanged -= h);
-
-            IObservable<string> textQuery =
-                from evt in textInput
-                let obj = evt.Sender as TextBox
-                let text = obj.Text
-                select text;
-
-            /*IObservable<PersonData> personList =
-                from query in textQuery
-                from person in personCollection
-                where person.Name.Contains(query) || person.EmailAddress.Contains(query) || person.SkypeAddress.Contains(query)
-                select person;*/
-
-            IObservable<List<PersonData>> personList =
-                from query in textQuery
-                from person in personCollection
-                let isSatisfying = person.Name.Contains(query) || person.EmailAddress.Contains(query) || person.SkypeAddress.Contains(query)
-                group person by isSatisfying into collection
-                select collection.ToList() as List<PersonData>;
-
-            personList.Subscribe(OnQuery);
         }
     }
 }
