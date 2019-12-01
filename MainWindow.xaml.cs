@@ -71,6 +71,20 @@ namespace Lab3
 
             PersonDataList.ItemsSource = personSelection;
 
+            // https://stackoverflow.com/questions/4879689/how-to-determine-if-wpf-datagrid-cell-is-in-edit-mode/4879799
+            // По каким-то причинам DataGrid не обновляет состояние скорого дня
+            // рождения поэтому обновляем состояние сами.
+            Observable.FromEventPattern<SelectedCellsChangedEventHandler, SelectedCellsChangedEventArgs>(
+                h => PersonDataList.SelectedCellsChanged += h,
+                h => PersonDataList.SelectedCellsChanged -= h)
+                .Subscribe(o =>
+                {
+                    // Таким хитрым способом проверяем находится ли таблица
+                    // сейчас в режиме добавления новой записи.
+                    if (personSelection.Last() != PersonDataList.CurrentItem)
+                        PersonDataList.Items.Refresh();
+                });
+
             var textInput = Observable.FromEventPattern<TextChangedEventHandler, TextChangedEventArgs>(h => QueryInput.TextChanged += h, h => QueryInput.TextChanged -= h);
 
             var textQuery =
