@@ -23,7 +23,6 @@ namespace Lab3
     public partial class MainWindow: Window
     {
         static string xmlPath = "person-data-base.xml";
-        DataSet xmlDataSet = new DataSet();
 
         // Две коллекции. Исходная и наблюдаемая в зависимости от выборки.
         List<PersonData> personCollection;
@@ -61,6 +60,7 @@ namespace Lab3
         // https://stackoverflow.com/questions/27179373/xml-binding-to-datagrid-in-wpf
         void BindXml()
         {
+            DataSet xmlDataSet = new DataSet();
             xmlDataSet.ReadXml(xmlPath);
 
             if (xmlDataSet.Tables.Count == 0)
