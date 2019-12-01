@@ -31,18 +31,24 @@ namespace Lab3
 
         static List<PersonData> Serialize(DataSet xmlDataSet)
         {
+            if (xmlDataSet.Tables.Count == 0)
+                return new List<PersonData>();
+
             return xmlDataSet.Tables[0].AsEnumerable()
                 .Select(dataRow =>
                 {
+                    // https://stackoverflow.com/questions/7104675/difference-between-getting-value-from-datarow
                     return new PersonData
                     {
-                        Name = dataRow.IsNull("Name") ? "" : dataRow.Field<string>("Name"),
-                        //DateOfBirth = dataRow.Field<DateTime>("DateOfBirth")
-                        ContactNumber = dataRow.Field<string>("ContactNumber"),
-                        PersonalContactNumber = dataRow.Field<string>("PersonalContactNumber"),
-                        EmailAddress = dataRow.Field<string>("EmailAddress"),
-                        SkypeAddress = dataRow.Field<string>("SkypeAddress"),
-                        Comment = dataRow.Field<string>("Comment")
+                        Name = Convert.ToString(dataRow["Name"]),
+                        // Тут не совсем ясно почему программа выдаёт ошибку
+                        // InvalidCastException если не использовать as string?
+                        DateOfBirth = Convert.ToDateTime(dataRow["DateOfBirth"] as string),
+                        ContactNumber = Convert.ToString(dataRow["ContactNumber"]),
+                        PersonalContactNumber = Convert.ToString(dataRow["PersonalContactNumber"]),
+                        EmailAddress = Convert.ToString(dataRow["EmailAddress"]),
+                        SkypeAddress = Convert.ToString(dataRow["SkypeAddress"]),
+                        Comment = Convert.ToString(dataRow["Comment"])
                     };
                 })
                 .ToList();
@@ -59,9 +65,6 @@ namespace Lab3
 
             if (xmlDataSet.Tables.Count == 0)
                 xmlDataSet.Tables.Add("PersonList");
-
-            // Сериализуем данные. Сперва превращаем в List<> а после в
-            // Collection<> и ObservableCollection<>.
 
             personCollection = Serialize(xmlDataSet);
             personSelection = new ObservableCollection<PersonData>(personCollection);
@@ -83,8 +86,9 @@ namespace Lab3
             // https://stackoverflow.com/questions/25296270/observable-where-with-async-predicate
             var personObservable =
                 from query in textQuery
+                let normalQuery = query.ToLower()
                 from person in personCollection
-                let isSatisfying = person.Name.ToLower().Contains(query.ToLower())
+                let isSatisfying = person.Name.ToLower().Contains(normalQuery)
                 where isSatisfying == true
                 select person;
 
