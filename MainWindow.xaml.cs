@@ -12,11 +12,10 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using System.Collections.ObjectModel;
+using System.Collections.ObjectModel; // ObservableCollection
 using System.Data; // DataSet
 using System.ComponentModel; // CancelEventArgs
-using System.Reactive.Linq;
-using System.Reactive.Disposables;
+using System.Reactive.Linq; // select, from, where, let, ..
 using System.Reactive; // EventPattern
 
 namespace Lab3
@@ -27,7 +26,7 @@ namespace Lab3
         DataSet xmlDataSet = new DataSet();
 
         // Две коллекции. Исходная и наблюдаемая в зависимости от выборки.
-        ObservableCollection<PersonData> personCollection;
+        List<PersonData> personCollection;
         ObservableCollection<PersonData> personSelection;
 
         static List<PersonData> Serialize(DataSet xmlDataSet)
@@ -63,10 +62,9 @@ namespace Lab3
 
             // Сериализуем данные. Сперва превращаем в List<> а после в
             // Collection<> и ObservableCollection<>.
-            var list = Serialize(xmlDataSet);
 
-            personCollection = new ObservableCollection<PersonData>(list);
-            personSelection = new ObservableCollection<PersonData>(list);
+            personCollection = Serialize(xmlDataSet);
+            personSelection = new ObservableCollection<PersonData>(personCollection);
 
             PersonDataList.ItemsSource = personSelection;
 
@@ -78,7 +76,9 @@ namespace Lab3
                 let text = obj.Text
                 select text;
 
-            textQuery.Subscribe(o => personSelection.Clear());
+            // https://stackoverflow.com/questions/4493858/elegant-way-to-combine-multiple-collections-of-elements
+            textQuery.Subscribe(o => { personCollection = personCollection.Union(personSelection).ToList(); });
+            textQuery.Subscribe(o => { personSelection.Clear(); });
 
             // https://stackoverflow.com/questions/25296270/observable-where-with-async-predicate
             var personObservable =
