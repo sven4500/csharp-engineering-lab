@@ -12,8 +12,6 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using System.Collections.ObjectModel; // ObservableCollection
-using System.Data; // DataSet
 using System.ComponentModel; // CancelEventArgs
 using System.Reactive.Linq; // select, from, where, let, ..
 using System.Reactive; // EventPattern
@@ -22,77 +20,27 @@ namespace Lab3
 {
     public partial class MainWindow: Window
     {
-        static string xmlPath = "person-data-base.xml";
-
-        // Две коллекции. Исходная и наблюдаемая в зависимости от выборки.
-        List<PersonData> personCollection;
-        ObservableCollection<PersonData> personSelection;
-
-        static List<PersonData> Serialize(DataSet xmlDataSet)
+        public MainWindow()
         {
-            if (xmlDataSet.Tables.Count == 0)
-                return new List<PersonData>();
-
-            return xmlDataSet.Tables[0].AsEnumerable()
-                .Select(dataRow =>
-                {
-                    // https://stackoverflow.com/questions/7104675/difference-between-getting-value-from-datarow
-                    return new PersonData
-                    {
-                        Name = Convert.ToString(dataRow["Name"]),
-                        // Тут не совсем ясно почему программа выдаёт ошибку
-                        // InvalidCastException если не использовать as string?
-                        DateOfBirth = Convert.ToDateTime(dataRow["DateOfBirth"] as string),
-                        ContactNumber = Convert.ToString(dataRow["ContactNumber"]),
-                        PersonalContactNumber = Convert.ToString(dataRow["PersonalContactNumber"]),
-                        EmailAddress = Convert.ToString(dataRow["EmailAddress"]),
-                        SkypeAddress = Convert.ToString(dataRow["SkypeAddress"]),
-                        Comment = Convert.ToString(dataRow["Comment"])
-                    };
-                })
-                .ToList();
+            InitializeComponent();
+            MakeAlphabeticIndex();
+            InitializeViewModel();
         }
 
-        static DataSet Deserialize(List<PersonData> list)
+        protected void InitializeViewModel()
         {
-            DataTable table = new DataTable();
-            table.TableName = "Person";
+            MainWindowVM viewModel = DataContext as MainWindowVM;
+            if (viewModel == null)
+                return;
 
-            table.Columns.Add("Name");
-            table.Columns.Add("DateOfBirth");
-            table.Columns.Add("ContactNumber");
-            table.Columns.Add("PersonalContactNumber");
-            table.Columns.Add("EmailAddress");
-            table.Columns.Add("SkypeAddress");
-            table.Columns.Add("Comment");
-            table.Columns.Add("IsBirthdaySoon");
-
-            foreach (PersonData person in list)
-                table.Rows.Add(person.Name, person.DateOfBirth, person.ContactNumber, person.PersonalContactNumber, person.EmailAddress, person.SkypeAddress, person.Comment);
-
-            DataSet xmlDataSet = new DataSet();
-            xmlDataSet.DataSetName = "PersonList";
-            xmlDataSet.Tables.Add(table);
-
-            return xmlDataSet;
-        }
-
-        // https://stackoverflow.com/questions/46849221/how-to-read-an-xml-file-using-xmldataprovider-in-wpf-c-sharp
-        // https://stackoverflow.com/questions/27179373/xml-binding-to-datagrid-in-wpf
-        void BindXml()
-        {
-            DataSet xmlDataSet = new DataSet();
-            xmlDataSet.ReadXml(xmlPath);
-
-            personCollection = Serialize(xmlDataSet);
-            personSelection = new ObservableCollection<PersonData>(personCollection);
-
-            PersonDataList.ItemsSource = personSelection;
+            Closing += viewModel.OnClosing;
+            RemoveItemButton.Click += viewModel.OnRemoveItem;
+            //PersonDataList.SelectedCellsChanged += viewModel.NotifyToUpdate;
 
             // https://stackoverflow.com/questions/4879689/how-to-determine-if-wpf-datagrid-cell-is-in-edit-mode/4879799
             // По каким-то причинам DataGrid не обновляет состояние скорого дня
             // рождения поэтому обновляем состояние сами.
-            Observable.FromEventPattern<SelectedCellsChangedEventHandler, SelectedCellsChangedEventArgs>(
+            /*Observable.FromEventPattern<SelectedCellsChangedEventHandler, SelectedCellsChangedEventArgs>(
                 h => PersonDataList.SelectedCellsChanged += h,
                 h => PersonDataList.SelectedCellsChanged -= h)
                 .Subscribe(o =>
@@ -101,7 +49,7 @@ namespace Lab3
                     // сейчас в режиме добавления новой записи.
                     if (personSelection.Last() != PersonDataList.CurrentItem)
                         PersonDataList.Items.Refresh();
-                });
+                });*/
 
             var textInput = Observable.FromEventPattern<TextChangedEventHandler, TextChangedEventArgs>(h => QueryInput.TextChanged += h, h => QueryInput.TextChanged -= h);
 
@@ -111,27 +59,25 @@ namespace Lab3
                 let text = obj.Text
                 select text;
 
-            // https://stackoverflow.com/questions/4493858/elegant-way-to-combine-multiple-collections-of-elements
-            textQuery.Subscribe(o => { personCollection = personCollection.Union(personSelection).ToList(); });
-            textQuery.Subscribe(o => { personSelection.Clear(); });
+            textQuery.Subscribe(o =>
+            {
+                viewModel.MergeCollectionWithSelection();
+                viewModel.ClearSelection();
+            });
 
             // https://stackoverflow.com/questions/25296270/observable-where-with-async-predicate
             var personObservable =
                 from query in textQuery
                 let normalQuery = query.ToLower()
-                from person in personCollection
+                from person in viewModel.PersonCollection
                 where person.Name.ToLower().Contains(normalQuery) || person.ContactNumber.Contains(normalQuery) || person.PersonalContactNumber.Contains(normalQuery) ||
                     person.EmailAddress.ToLower().Contains(normalQuery) || person.SkypeAddress.Contains(normalQuery) || person.Comment.ToLower().Contains(normalQuery)
                 select person;
 
-            personObservable.Subscribe(o => personSelection.Add(o));
-        }
-
-        private void OnClosing(object sender, EventArgs e)
-        {
-            personCollection = personCollection.Union(personSelection).ToList();
-            DataSet xmlDataSet = Deserialize(personCollection);
-            xmlDataSet.WriteXml(xmlPath);
+            personObservable.Subscribe(o =>
+            {
+                viewModel.AddPersonToSelection(o);
+            });
         }
 
         protected void MakeAlphabeticIndex()
@@ -145,7 +91,7 @@ namespace Lab3
                 var definition = new ColumnDefinition();
                 definition.Width = new GridLength(1, GridUnitType.Star);
                 AlphabeticGrid.ColumnDefinitions.Add(definition);
-                
+
                 var button = new Button();
                 button.Content = indexChar;
                 button.Name = "Index" + indexChar;
@@ -165,23 +111,6 @@ namespace Lab3
                     QueryInput.Text += but.Content.ToString().ToLower();
                 });
             }
-        }
-
-        void RemoveItem(object sender, EventArgs e)
-        {
-            PersonData person = PersonDataList.SelectedItem as PersonData;
-            if (person != null)
-            {
-                personCollection.Remove(person);
-                personSelection.Remove(person);
-            }
-        }
-
-        public MainWindow()
-        {
-            InitializeComponent();
-            MakeAlphabeticIndex();
-            BindXml();
         }
     }
 }
