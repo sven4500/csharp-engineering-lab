@@ -120,8 +120,8 @@ namespace Lab3
                 from query in textQuery
                 let normalQuery = query.ToLower()
                 from person in personCollection
-                let isSatisfying = person.Name.ToLower().Contains(normalQuery)
-                where isSatisfying == true
+                where person.Name.ToLower().Contains(normalQuery) || person.ContactNumber.Contains(normalQuery) || person.PersonalContactNumber.Contains(normalQuery) ||
+                    person.EmailAddress.ToLower().Contains(normalQuery) || person.SkypeAddress.Contains(normalQuery) || person.Comment.ToLower().Contains(normalQuery)
                 select person;
 
             personObservable.Subscribe(o => personSelection.Add(o));
