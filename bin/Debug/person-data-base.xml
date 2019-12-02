@@ -1,4 +1,93 @@
 <?xml version="1.0" standalone="yes"?>
 <PersonList>
-  <Person Name="Василий Пупкин" DateOfBirth="1/1/1993" ContactNumber="+79641234567" PersonalContactNumber="+79657895163" EmailAddress="vasily.pupkin@gmail.com" SkypeAddress="Vasily1993" Comment="Лучший друг" />
+  <Person>
+    <Name>Василий Пупкин</Name>
+    <DateOfBirth>08.12.1992 0:00:00</DateOfBirth>
+    <ContactNumber>+79654123395</ContactNumber>
+    <PersonalContactNumber>(495)771-53-27</PersonalContactNumber>
+    <EmailAddress>vasily.pupkin@gmail.com</EmailAddress>
+    <SkypeAddress>Vasily1992</SkypeAddress>
+    <Comment>Лучший друг</Comment>
+  </Person>
+  <Person>
+    <Name>Виталий</Name>
+    <DateOfBirth>20.04.1995 0:00:00</DateOfBirth>
+    <ContactNumber />
+    <PersonalContactNumber>(963)554-71-44</PersonalContactNumber>
+    <EmailAddress />
+    <SkypeAddress />
+    <Comment>Кто-то неизвестный</Comment>
+  </Person>
+  <Person>
+    <Name>Иван Сидоров</Name>
+    <DateOfBirth>03.11.1985 0:00:00</DateOfBirth>
+    <ContactNumber />
+    <PersonalContactNumber>+79223209379</PersonalContactNumber>
+    <EmailAddress>kozezateg-0047@yopmail.com</EmailAddress>
+    <SkypeAddress />
+    <Comment />
+  </Person>
+  <Person>
+    <Name>Куликов</Name>
+    <DateOfBirth>24.08.1989 0:00:00</DateOfBirth>
+    <ContactNumber>9256398280</ContactNumber>
+    <PersonalContactNumber>9707888487</PersonalContactNumber>
+    <EmailAddress />
+    <SkypeAddress />
+    <Comment />
+  </Person>
+  <Person>
+    <Name>Щербак Пелагея</Name>
+    <DateOfBirth>22.04.1987 0:00:00</DateOfBirth>
+    <ContactNumber>(495)100-77-60</ContactNumber>
+    <PersonalContactNumber />
+    <EmailAddress>44dc1ffm@yandex.ru</EmailAddress>
+    <SkypeAddress>Lasiasso</SkypeAddress>
+    <Comment />
+  </Person>
+  <Person>
+    <Name>Крюкова Александра</Name>
+    <DateOfBirth>05.12.1999 0:00:00</DateOfBirth>
+    <ContactNumber>(495)518-76-14</ContactNumber>
+    <PersonalContactNumber />
+    <EmailAddress>copaa6@gmail.com</EmailAddress>
+    <SkypeAddress>Reddaniam</SkypeAddress>
+    <Comment />
+  </Person>
+  <Person>
+    <Name>Шилова Ева</Name>
+    <DateOfBirth>09.08.1992 0:00:00</DateOfBirth>
+    <ContactNumber />
+    <PersonalContactNumber>79674580375</PersonalContactNumber>
+    <EmailAddress />
+    <SkypeAddress>Essenald</SkypeAddress>
+    <Comment />
+  </Person>
+  <Person>
+    <Name>Баранов Степан</Name>
+    <DateOfBirth>18.08.1981 0:00:00</DateOfBirth>
+    <ContactNumber>(495)608-21-75</ContactNumber>
+    <PersonalContactNumber>9638058940</PersonalContactNumber>
+    <EmailAddress />
+    <SkypeAddress>Xantonyak</SkypeAddress>
+    <Comment />
+  </Person>
+  <Person>
+    <Name>Емельянова Зоя</Name>
+    <DateOfBirth>08.03.1997 0:00:00</DateOfBirth>
+    <ContactNumber>(495)492-65-95</ContactNumber>
+    <PersonalContactNumber>9773482196</PersonalContactNumber>
+    <EmailAddress />
+    <SkypeAddress>Eikorenev</SkypeAddress>
+    <Comment />
+  </Person>
+  <Person>
+    <Name>Устинов Иван</Name>
+    <DateOfBirth>01.07.1991 0:00:00</DateOfBirth>
+    <ContactNumber />
+    <PersonalContactNumber>(963)977-01-29</PersonalContactNumber>
+    <EmailAddress>kggfpxw@yandex.ru</EmailAddress>
+    <SkypeAddress />
+    <Comment />
+  </Person>
 </PersonList>
