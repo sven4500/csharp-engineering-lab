@@ -53,8 +53,29 @@ namespace Lab3
                 .ToList();
         }
 
-        /*void Deserialize(List<PersonData> list)
-        { }*/
+        static DataSet Deserialize(List<PersonData> list)
+        {
+            DataTable table = new DataTable();
+            table.TableName = "Person";
+
+            table.Columns.Add("Name");
+            table.Columns.Add("DateOfBirth");
+            table.Columns.Add("ContactNumber");
+            table.Columns.Add("PersonalContactNumber");
+            table.Columns.Add("EmailAddress");
+            table.Columns.Add("SkypeAddress");
+            table.Columns.Add("Comment");
+            table.Columns.Add("IsBirthdaySoon");
+
+            foreach (PersonData person in list)
+                table.Rows.Add(person.Name, person.DateOfBirth, person.ContactNumber, person.PersonalContactNumber, person.EmailAddress, person.SkypeAddress, person.Comment);
+
+            DataSet xmlDataSet = new DataSet();
+            xmlDataSet.DataSetName = "PersonList";
+            xmlDataSet.Tables.Add(table);
+
+            return xmlDataSet;
+        }
 
         // https://stackoverflow.com/questions/46849221/how-to-read-an-xml-file-using-xmldataprovider-in-wpf-c-sharp
         // https://stackoverflow.com/questions/27179373/xml-binding-to-datagrid-in-wpf
@@ -62,9 +83,6 @@ namespace Lab3
         {
             DataSet xmlDataSet = new DataSet();
             xmlDataSet.ReadXml(xmlPath);
-
-            if (xmlDataSet.Tables.Count == 0)
-                xmlDataSet.Tables.Add("PersonList");
 
             personCollection = Serialize(xmlDataSet);
             personSelection = new ObservableCollection<PersonData>(personCollection);
@@ -111,7 +129,9 @@ namespace Lab3
 
         private void OnClosing(object sender, EventArgs e)
         {
-            //xmlDataSet.WriteXml(xmlPath);
+            personCollection = personCollection.Union(personSelection).ToList();
+            DataSet xmlDataSet = Deserialize(personCollection);
+            xmlDataSet.WriteXml(xmlPath);
         }
 
         protected void MakeAlphabeticIndex()
