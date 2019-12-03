@@ -27,8 +27,7 @@
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Имя" Binding="{Binding Name}"/>
                 <DataGridTextColumn Header="Дата рождения" Binding="{Binding DateOfBirth}"/>
-                <!-- Почему-то свойства UpdateSourceTrigger и NotifyOnSourceUpdated не обновляют содержимое.
-                Используем свойство OneWay так как свойство объекта IsBirthdaySoon нельзя задать. -->
+                <!-- Используем свойство OneWay так как свойство объекта IsBirthdaySoon нельзя задать. -->
                 <DataGridCheckBoxColumn Header="" IsReadOnly="True" CanUserResize="False" Binding="{Binding IsBirthdaySoon, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
                 <DataGridTextColumn Header="Телефон рабочий" Binding="{Binding ContactNumber}"/>
                 <DataGridTextColumn Header="Телефон домашний" Binding="{Binding PersonalContactNumber}"/>

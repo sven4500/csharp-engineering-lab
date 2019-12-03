@@ -9,12 +9,12 @@ using System.ComponentModel; // INotifyPropertyChanged
 namespace Lab3
 {
     // https://habr.com/ru/post/338518/
-    public class MainWindowVM: INotifyPropertyChanged
+    public class MainWindowVM
     {
-        readonly Model model = new Model();
+        readonly private Model model = new Model();
 
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected void OnPropertyChanged(string propertyName)
+        private event PropertyChangedEventHandler PropertyChanged;
+        private void OnPropertyChanged(string propertyName)
         {
             if (PropertyChanged != null)
                 PropertyChanged.Invoke(this, new PropertyChangedEventArgs(propertyName));
@@ -24,11 +24,6 @@ namespace Lab3
         public ObservableCollection<PersonData> PersonSelection { get { return model.PersonSelection; } }
 
         public object SelectedItem { get; set; }
-
-        /*public void NotifyToUpdate(object sender, EventArgs e)
-        {
-            OnPropertyChanged("PersonSelection");
-        }*/
 
         public void OnClosing(object sender, EventArgs e)
         {
