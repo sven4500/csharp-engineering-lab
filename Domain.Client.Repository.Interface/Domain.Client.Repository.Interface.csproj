@@ -4,16 +4,15 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{244835BB-9EE0-4A13-AAB1-417A8F65913F}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <ProjectGuid>{78F5323A-5074-425A-A9C9-732297882DFA}</ProjectGuid>
+    <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Lab4</RootNamespace>
-    <AssemblyName>Lab4</AssemblyName>
+    <RootNamespace>Domain.Client.Repository.Interface</RootNamespace>
+    <AssemblyName>Domain.Client.Repository.Interface</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -23,7 +22,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -41,47 +39,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Program.cs" />
+    <Compile Include="ClientRepositoryInterface.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <WCFMetadata Include="Service References\" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="Domain.Bill\Domain.Bill.csproj">
-      <Project>{7eae4297-81a2-432f-b9b1-b8f434074723}</Project>
-      <Name>Domain.Bill</Name>
-    </ProjectReference>
-    <ProjectReference Include="Domain.Cart\Domain.Cart.csproj">
-      <Project>{c70d8544-3dd4-4295-88f4-c57e555ab018}</Project>
-      <Name>Domain.Cart</Name>
-    </ProjectReference>
-    <ProjectReference Include="Domain.Client.Repository.Interface\Domain.Client.Repository.Interface.csproj">
-      <Project>{78f5323a-5074-425a-a9c9-732297882dfa}</Project>
-      <Name>Domain.Client.Repository.Interface</Name>
-    </ProjectReference>
-    <ProjectReference Include="Domain.Client.Repository.Xml\Domain.Client.Repository.Xml.csproj">
-      <Project>{306bc12b-233d-4b29-8171-216df4765cac}</Project>
-      <Name>Domain.Client.Repository.Xml</Name>
-    </ProjectReference>
-    <ProjectReference Include="Domain.Client\Domain.Client.csproj">
+    <ProjectReference Include="..\Domain.Client\Domain.Client.csproj">
       <Project>{abdfe996-1d3b-4ef6-8fb9-8b5c8cfb3113}</Project>
       <Name>Domain.Client</Name>
-    </ProjectReference>
-    <ProjectReference Include="Domain.Item.Repository.Interface\Domain.Item.Repository.Interface.csproj">
-      <Project>{1f478a8a-fa72-4bfa-8443-1ea7b6b0e166}</Project>
-      <Name>Domain.Item.Repository.Interface</Name>
-    </ProjectReference>
-    <ProjectReference Include="Domain.Item.Repository.Xml\Domain.Item.Repository.Xml.csproj">
-      <Project>{21bf1fc0-dc27-4ca1-b05d-54704b17a4f1}</Project>
-      <Name>Domain.Item.Repository.Xml</Name>
-    </ProjectReference>
-    <ProjectReference Include="Domain.Item\Domain.Item.csproj">
-      <Project>{a7cfe0d0-ee8c-4e20-b026-7ce8e81a8240}</Project>
-      <Name>Domain.Item</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
