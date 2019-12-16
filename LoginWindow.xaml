@@ -20,9 +20,9 @@
             <RowDefinition Height="1*"/>
             <RowDefinition Height="3*"/>
         </Grid.RowDefinitions>
-        <ComboBox Name="UserCbs" ItemsSource="{Binding Users, Mode=OneWay}" Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" />
+        <ComboBox Name="UserCbs" ItemsSource="{Binding Users, Mode=OneWay}" Grid.Column="1" Grid.Row="1" VerticalAlignment="Center"/>
         <!-- https://stackoverflow.com/questions/1483892/how-to-bind-to-a-passwordbox-in-mvvm -->
-        <TextBox Name="PasswordTextBox" Text="{Binding PasswordText, Mode=OneWayToSource}" Grid.Column="1" Grid.Row="2" VerticalAlignment="Center"/>
+        <PasswordBox Name="PasswordTextBox" Grid.Column="1" Grid.Row="2" VerticalAlignment="Center"/>
         <Button Name="ValidateButton" Content="Войти" Grid.Column="1" Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Center"/>
         <Button Name="ChangePasswordButton" Content="Изменить пароль..." Grid.Column="0" Grid.Row="5" HorizontalAlignment="Left" Margin="10,0,0,10" VerticalAlignment="Bottom"/>
         <Label Content="{Binding LoginValidationText, Mode=OneWay}" Grid.Column="1" Grid.Row="4" HorizontalAlignment="Center" VerticalAlignment="Center"/>
