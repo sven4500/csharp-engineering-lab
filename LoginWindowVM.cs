@@ -3,27 +3,39 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ReactiveUI;
 
 namespace CoffeeShop
 {
-    class LoginWindowVM
+    class LoginWindowVM : ReactiveObject
     {
         private LoginWindowModel model = new LoginWindowModel();
 
-        public List<string> Users { get { return model.Users; } }
+        // В этой работе используется заранее заданное количество и типы пользователей.
+        private readonly List<string> users = new List<string>(new string[] { "Менеджер", "Официант" });
+        public List<string> Users { get { return users; } }
+
+        public string CurrentUser { get; set; }
+
         public string LoginValidationText { get; private set; }
-        public string PasswordText { get; set; }
 
         public LoginWindowVM()
         {
             
         }
 
-        public bool Validate()
+        public bool Validate(string password)
         {
-            // TODO: реакция на нажатие кнопки "Войти".
-            LoginValidationText = "Неверный логин или пароль";
-            return false;
+            if (model.Validate(CurrentUser, password) == true)
+            {
+                // TODO: продолжаем далее и загружаем правльное для пользователя окно.
+                return true;
+            }
+            else
+            {
+                LoginValidationText = "Неверный логин или пароль";
+                return false;
+            }
         }
 
     }

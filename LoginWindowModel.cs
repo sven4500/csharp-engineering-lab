@@ -8,15 +8,12 @@ namespace CoffeeShop
 {
     class LoginWindowModel
     {
-        private readonly List<string> users = new List<string>(new string[] { "Менеджер", "Официант" });
-        public List<string> Users { get { return users; } }
-
         public LoginWindowModel()
         {
 
         }
 
-        public bool Validate(string password)
+        public bool Validate(string login, string password)
         {
             // TODO: проверка пароля.
             return false;

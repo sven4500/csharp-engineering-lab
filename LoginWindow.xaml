@@ -20,7 +20,8 @@
             <RowDefinition Height="1*"/>
             <RowDefinition Height="3*"/>
         </Grid.RowDefinitions>
-        <ComboBox Name="UserCbs" ItemsSource="{Binding Users, Mode=OneWay}" Grid.Column="1" Grid.Row="1" VerticalAlignment="Center"/>
+        <!-- https://stackoverflow.com/questions/4902039/difference-between-selecteditem-selectedvalue-and-selectedvaluepath -->
+        <ComboBox Name="UserCbs" ItemsSource="{Binding Users, Mode=OneWay}" SelectedValue="{Binding CurrentUser, Mode=OneWayToSource}" Grid.Column="1" Grid.Row="1" VerticalAlignment="Center"/>
         <!-- https://stackoverflow.com/questions/1483892/how-to-bind-to-a-passwordbox-in-mvvm -->
         <PasswordBox Name="PasswordTextBox" Grid.Column="1" Grid.Row="2" VerticalAlignment="Center"/>
         <Button Name="ValidateButton" Content="Войти" Grid.Column="1" Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Center"/>
