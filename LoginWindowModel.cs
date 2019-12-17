@@ -48,6 +48,11 @@ namespace CoffeeShop
             return dataSet;
         }
 
+        public void Update(string login, string password)
+        {
+            userPassword[login] = password;
+        }
+
         public void Save()
         {
             DataSet dataSet = Serialize(userPassword);

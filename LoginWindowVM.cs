@@ -20,8 +20,13 @@ namespace CoffeeShop
         private string loginValidationText;
         public string LoginValidationText { get { return loginValidationText; } private set { this.RaiseAndSetIfChanged(ref loginValidationText, value); } }
 
+        // Команда на выполнения входа в систему.
         protected readonly ReactiveCommand<string, string> validateCommand = ReactiveCommand.Create<string, string>(o => o);
         public ReactiveCommand<string, string> ValidateCommand { get { return validateCommand; } }
+
+        // Команда на желание пользователя сменить пароль.
+        protected readonly ReactiveCommand<Unit, Unit> changePasswordCommand = ReactiveCommand.Create<Unit, Unit>(o => o);
+        public ReactiveCommand<Unit, Unit> ChangePasswordCommand { get { return changePasswordCommand; } }
 
         public LoginWindowVM()
         {
@@ -35,6 +40,11 @@ namespace CoffeeShop
                 {
                     LoginValidationText = "Неверный логин или пароль";
                 }
+            });
+
+            ChangePasswordCommand.Subscribe(o =>
+            {
+                // TODO: открытие диалогового окна с возможностью сменить пароль.
             });
         }
     }

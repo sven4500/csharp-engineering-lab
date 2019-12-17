@@ -44,6 +44,7 @@ namespace CoffeeShop
             this.WhenActivated(disposable =>
             {
                 this.BindCommand(ViewModel, x => x.ValidateCommand, x => x.ValidateButton, passwordObservable);
+                this.BindCommand(ViewModel, x => x.ChangePasswordCommand, x => x.ChangePasswordButton);
             });
         }
     }
