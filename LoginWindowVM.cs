@@ -28,7 +28,8 @@ namespace CoffeeShop
 
         public LoginWindowVM()
         {
-            ValidateCommand.Subscribe(o => {
+            ValidateCommand.Subscribe(o =>
+            {
                 if (model.Validate(CurrentUser, o) == true)
                 {
                     // TODO: продолжаем далее и загружаем правльное для пользователя окно.
