@@ -19,29 +19,25 @@ namespace CoffeeShop
 
         public string CurrentUser { get; set; }
 
-        public string LoginValidationText { get; private set; }
+        // Нужно использовать RaiseAndSetIfChanged чтобы оповестить View о том что свойство изменилось.
+        private string loginValidationText;
+        public string LoginValidationText { get { return loginValidationText; } private set { this.RaiseAndSetIfChanged(ref loginValidationText, value); } }
 
-        protected readonly ReactiveCommand<Unit, Unit> validateCommand = ReactiveCommand.Create(() => { });
-        public ReactiveCommand<Unit, Unit> ValidateCommand { get { return validateCommand; } }
+        protected readonly ReactiveCommand<string, string> validateCommand = ReactiveCommand.Create<string, string>(o => o);
+        public ReactiveCommand<string, string> ValidateCommand { get { return validateCommand; } }
 
         public LoginWindowVM()
         {
-            ValidateCommand.Subscribe(o => Validate("123"));
+            ValidateCommand.Subscribe(o => {
+                if (model.Validate(CurrentUser, o) == true)
+                {
+                    // TODO: продолжаем далее и загружаем правльное для пользователя окно.
+                }
+                else
+                {
+                    LoginValidationText = "Неверный логин или пароль";
+                }
+            });
         }
-
-        public bool Validate(string password)
-        {
-            if (model.Validate(CurrentUser, password) == true)
-            {
-                // TODO: продолжаем далее и загружаем правльное для пользователя окно.
-                return true;
-            }
-            else
-            {
-                LoginValidationText = "Неверный логин или пароль";
-                return false;
-            }
-        }
-
     }
 }
