@@ -1,9 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Collections.Generic; // Dictionary
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Collections.Generic; // Dictionary
 using System.Data; // DataSet
 
 namespace CoffeeShop
@@ -14,6 +13,8 @@ namespace CoffeeShop
         public string XmlPath { get { return xmlPath; } set { xmlPath = value; } }
 
         private Dictionary<string, string> userPassword = new Dictionary<string, string>();
+
+        public List<string> Users { get { return userPassword.Select(o => o.Key).ToList(); } }
 
         public LoginWindowModel()
         {
@@ -50,6 +51,8 @@ namespace CoffeeShop
 
         public bool Validate(string login, string password)
         {
+            if (string.IsNullOrEmpty(login) || string.IsNullOrEmpty(password))
+                return false;
             return String.Compare(userPassword[login], password) == 0;
         }
 

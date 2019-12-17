@@ -13,10 +13,7 @@ namespace CoffeeShop
     {
         private LoginWindowModel model = new LoginWindowModel();
 
-        // В этой работе используется заранее заданное количество и типы пользователей.
-        private readonly List<string> users = new List<string>(new string[] { "Менеджер", "Официант" });
-        public List<string> Users { get { return users; } }
-
+        public List<string> Users { get { return model.Users; } }
         public string CurrentUser { get; set; }
 
         // Нужно использовать RaiseAndSetIfChanged чтобы оповестить View о том что свойство изменилось.
