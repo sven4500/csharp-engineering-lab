@@ -14,6 +14,7 @@ namespace CoffeeShop
 
         private Dictionary<string, string> userPassword = new Dictionary<string, string>();
 
+        // https://stackoverflow.com/questions/3968543/convert-dictionary-to-list-collection-in-c-sharp
         public List<string> Users { get { return userPassword.Select(o => o.Key).ToList(); } }
 
         public LoginWindowModel()
@@ -32,8 +33,19 @@ namespace CoffeeShop
 
         public DataSet Serialize(Dictionary<string, string> userPassword)
         {
-            // TODO: алгоритм сериализации.
-            return new DataSet();
+            DataTable table = new DataTable();
+            table.TableName = "User";
+            table.Columns.Add("Login");
+            table.Columns.Add("Password");
+
+            foreach (KeyValuePair<string, string> entry in userPassword)
+                table.Rows.Add(entry.Key, entry.Value);
+
+            DataSet dataSet = new DataSet();
+            dataSet.DataSetName = "Users";
+            dataSet.Tables.Add(table);
+
+            return dataSet;
         }
 
         public void Save()
