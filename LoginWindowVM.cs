@@ -4,10 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ReactiveUI;
+using System.Reactive;
+using System.Reactive.Linq;
 
 namespace CoffeeShop
 {
-    class LoginWindowVM : ReactiveObject
+    public class LoginWindowVM : ReactiveObject
     {
         private LoginWindowModel model = new LoginWindowModel();
 
@@ -19,9 +21,12 @@ namespace CoffeeShop
 
         public string LoginValidationText { get; private set; }
 
+        protected readonly ReactiveCommand<Unit, Unit> validateCommand = ReactiveCommand.Create(() => { });
+        public ReactiveCommand<Unit, Unit> ValidateCommand { get { return validateCommand; } }
+
         public LoginWindowVM()
         {
-            
+            ValidateCommand.Subscribe(o => Validate("123"));
         }
 
         public bool Validate(string password)
