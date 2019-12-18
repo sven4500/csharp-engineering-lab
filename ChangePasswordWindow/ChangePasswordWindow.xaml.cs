@@ -14,6 +14,7 @@ using System.Windows.Shapes;
 using ReactiveUI;
 using System.Reactive;
 using System.Reactive.Linq;
+using System.Reactive.Concurrency; // DispatcherScheduler
 
 namespace CoffeeShop
 {
@@ -32,6 +33,8 @@ namespace CoffeeShop
             InitializeComponent();
 
             // Наблюдаем за изменением пароля во всех трёх формах сразу. При помощи Select выбираем только тот элемент который нас интересует.
+            // Наблюдается ошибка многопоточности при использовании Throttle. Подробнее по ссылке.
+            // https://stackoverflow.com/questions/8766812/cross-thread-exception-when-using-rx-throttle
             Observable.FromEventPattern<RoutedEventHandler, RoutedEventArgs>(h =>
                 {
                     CurrentPasswordBox.PasswordChanged += h;
@@ -45,8 +48,8 @@ namespace CoffeeShop
                     NewRepeatPasswordBox.PasswordChanged -= h;
                 })
                 .Select(o => o)
-                //.Throttle(TimeSpan.FromMilliseconds(1000))
-                //.DistinctUntilChanged()
+                .Throttle(TimeSpan.FromMilliseconds(100))
+                .ObserveOn(DispatcherScheduler.Current)
                 .Subscribe(o =>
                 {
                     PasswordBox box = o.Sender as PasswordBox;
