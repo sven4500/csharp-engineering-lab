@@ -35,6 +35,7 @@ namespace CoffeeShop
                 if (model.Validate(CurrentUser, o) == true)
                 {
                     // TODO: продолжаем далее и загружаем правльное для пользователя окно.
+                    LoginValidationText = "";
                 }
                 else
                 {
@@ -44,7 +45,9 @@ namespace CoffeeShop
 
             ChangePasswordCommand.Subscribe(o =>
             {
-                // TODO: открытие диалогового окна с возможностью сменить пароль.
+                // https://stackoverflow.com/questions/2796470/wpf-create-a-dialog-prompt
+                var dialog = new ChangePasswordWindow();
+                dialog.ShowDialog();
             });
         }
     }

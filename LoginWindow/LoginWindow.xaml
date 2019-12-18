@@ -26,6 +26,6 @@
         <PasswordBox Name="PasswordTextBox" Grid.Column="1" Grid.Row="2" VerticalAlignment="Center"/>
         <Button Name="ValidateButton" Content="Войти" Grid.Column="1" Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Center"/>
         <Button Name="ChangePasswordButton" Content="Изменить пароль..." Grid.Column="0" Grid.Row="5" HorizontalAlignment="Left" Margin="10,0,0,10" VerticalAlignment="Bottom"/>
-        <Label Content="{Binding LoginValidationText, Mode=OneWay}" Grid.Column="1" Grid.Row="4" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <Label Content="{Binding LoginValidationText, Mode=OneWay}" Foreground="Red" Grid.Column="1" Grid.Row="4" HorizontalAlignment="Center" VerticalAlignment="Center"/>
     </Grid>
 </Window>
