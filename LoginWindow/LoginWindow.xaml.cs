@@ -23,7 +23,7 @@ namespace CoffeeShop
     public partial class LoginWindow : Window, IViewFor<LoginWindowVM>
     {
         public LoginWindowVM ViewModel { get { return DataContext as LoginWindowVM; } set { } }
-        object IViewFor.ViewModel { get { return ViewModel; } set { ViewModel = value as LoginWindowVM; } }
+        object IViewFor.ViewModel { get { return ViewModel; } set { } }
 
         public LoginWindow()
         {

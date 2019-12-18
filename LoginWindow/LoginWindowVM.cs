@@ -47,6 +47,8 @@ namespace CoffeeShop
             {
                 // https://stackoverflow.com/questions/2796470/wpf-create-a-dialog-prompt
                 var dialog = new ChangePasswordWindow();
+                dialog.Model = model;
+                dialog.CurrentUser = CurrentUser;
                 dialog.ShowDialog();
             });
         }

@@ -7,7 +7,7 @@ using System.Data; // DataSet
 
 namespace CoffeeShop
 {
-    class LoginWindowModel
+    public class LoginWindowModel
     {
         private string xmlPath = "./users.xml";
         public string XmlPath { get { return xmlPath; } set { xmlPath = value; } }

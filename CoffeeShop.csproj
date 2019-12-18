@@ -96,6 +96,7 @@
     <Compile Include="ChangePasswordWindow\ChangePasswordWindow.xaml.cs">
       <DependentUpon>ChangePasswordWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ChangePasswordWindow\ChangePasswordWindowVM.cs" />
     <Compile Include="LoginWindow\LoginWindow.xaml.cs">
       <DependentUpon>LoginWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
