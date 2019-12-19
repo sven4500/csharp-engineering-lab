@@ -85,6 +85,50 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Forms\Main Manager.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Forms\Main worker.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Forms\Manager Orders.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Forms\Manager Reports.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Forms\Manager Staff.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Forms\Manager Store.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Forms\Order Add Form.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Forms\Order list.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Forms\Staff Form.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Forms\Store Form.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Forms\Store Update Form.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="LoginWindow\LoginWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -97,6 +141,48 @@
       <DependentUpon>ChangePasswordWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="ChangePasswordWindow\ChangePasswordWindowVM.cs" />
+    <Compile Include="Forms\Main Manager.xaml.cs">
+      <DependentUpon>Main Manager.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Main worker.xaml.cs">
+      <SubType>Code</SubType>
+      <DependentUpon>Main worker.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Manager Orders.xaml.cs">
+      <SubType>Code</SubType>
+      <DependentUpon>Manager Orders.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Manager Reports.xaml.cs">
+      <SubType>Code</SubType>
+      <DependentUpon>Manager Reports.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Manager Staff.xaml.cs">
+      <SubType>Code</SubType>
+      <DependentUpon>Manager Staff.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Manager Store.xaml.cs">
+      <DependentUpon>Manager Store.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Order Add Form.xaml.cs">
+      <SubType>Code</SubType>
+      <DependentUpon>Order Add Form.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Order list.xaml.cs">
+      <SubType>Code</SubType>
+      <DependentUpon>Order list.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Staff Form.xaml.cs">
+      <SubType>Code</SubType>
+      <DependentUpon>Staff Form.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Store Form.xaml.cs">
+      <SubType>Code</SubType>
+      <DependentUpon>Store Form.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Store Update Form.xaml.cs">
+      <SubType>Code</SubType>
+      <DependentUpon>Store Update Form.xaml</DependentUpon>
+    </Compile>
     <Compile Include="LoginWindow\LoginWindow.xaml.cs">
       <DependentUpon>LoginWindow.xaml</DependentUpon>
       <SubType>Code</SubType>

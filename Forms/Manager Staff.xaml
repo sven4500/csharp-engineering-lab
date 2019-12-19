@@ -1,0 +1,35 @@
+﻿<Page x:Class="KP.Manager_Staff"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:KP"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="Manager_Staff">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="45*"/>
+            <RowDefinition Height="322*"/>
+            <RowDefinition Height="83*"/>
+        </Grid.RowDefinitions>
+        <DataGrid Grid.Row="1" Grid.Column="0" Name="dgProducts" AutoGenerateColumns="False" ItemsSource="{Binding Products}"  Width="Auto" Margin="20,20,20,20" Height="Auto">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="ID" Width="90" IsReadOnly="True" />
+                <DataGridTextColumn Header="Имя" Width="110" IsReadOnly="True" />
+                <DataGridTextColumn  Header="Фамилия" Width="110" IsReadOnly="True" />
+                <DataGridTextColumn  Header="Отчество" Width="110" IsReadOnly="True" />
+                <DataGridTextColumn  Header="Должность" Width="110" IsReadOnly="True" />
+                <DataGridTextColumn  Header="Дата устройства" Width="110" IsReadOnly="True" />
+                <DataGridTextColumn  Header="Телефон" Width="120" IsReadOnly="True" />
+            </DataGrid.Columns>
+        </DataGrid>
+        <Button Content="Вернуться в меню" HorizontalAlignment="Left" Height="25" Margin="41,0,0,0" VerticalAlignment="Center" Width="148"/>
+        <Button Content="Добавить сотрудника" HorizontalAlignment="Left" Height="25" Margin="41,0,0,0" VerticalAlignment="Center" Width="148" Grid.Row="2"/>
+        <Button Content="Редактировать сотрудника" HorizontalAlignment="Left" Height="26" Margin="597,0,0,0" VerticalAlignment="Center" Width="148" Grid.Row="2"/>
+        <Label Content="Поиск сотрудника" HorizontalAlignment="Left" Margin="464,0,0,0" VerticalAlignment="Center"/>
+        <TextBox x:Name="Search_Worker" HorizontalAlignment="Left" Margin="610,0,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Center" Width="159" Height="25"/>
+
+    </Grid>
+</Page>
