@@ -85,23 +85,23 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="MainManager\Main Manager.xaml">
+    <Page Include="MainManager\MainManager.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="ManagerOrders\Manager Orders.xaml">
+    <Page Include="ManagerOrders\ManagerOrders.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="ManagerStaff\Manager Staff.xaml">
+    <Page Include="ManagerStaff\ManagerStaff.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="ManagerStore\Manager Store.xaml">
+    <Page Include="ManagerStore\ManagerStore.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="ShoppingCart\Order list.xaml">
+    <Page Include="ShoppingCart\ShoppingCart.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -117,23 +117,23 @@
       <DependentUpon>ChangePasswordWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="ChangePasswordWindow\ChangePasswordWindowVM.cs" />
-    <Compile Include="MainManager\Main Manager.xaml.cs">
-      <DependentUpon>Main Manager.xaml</DependentUpon>
+    <Compile Include="MainManager\MainManager.xaml.cs">
+      <DependentUpon>MainManager.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ManagerOrders\Manager Orders.xaml.cs">
+    <Compile Include="ManagerOrders\ManagerOrders.xaml.cs">
       <SubType>Code</SubType>
-      <DependentUpon>Manager Orders.xaml</DependentUpon>
+      <DependentUpon>ManagerOrders.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ManagerStaff\Manager Staff.xaml.cs">
+    <Compile Include="ManagerStaff\ManagerStaff.xaml.cs">
       <SubType>Code</SubType>
-      <DependentUpon>Manager Staff.xaml</DependentUpon>
+      <DependentUpon>ManagerStaff.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ManagerStore\Manager Store.xaml.cs">
-      <DependentUpon>Manager Store.xaml</DependentUpon>
+    <Compile Include="ManagerStore\ManagerStore.xaml.cs">
+      <DependentUpon>ManagerStore.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ShoppingCart\Order list.xaml.cs">
+    <Compile Include="ShoppingCart\ShoppingCart.xaml.cs">
       <SubType>Code</SubType>
-      <DependentUpon>Order list.xaml</DependentUpon>
+      <DependentUpon>ShoppingCart.xaml</DependentUpon>
     </Compile>
     <Compile Include="LoginWindow\LoginWindow.xaml.cs">
       <DependentUpon>LoginWindow.xaml</DependentUpon>
