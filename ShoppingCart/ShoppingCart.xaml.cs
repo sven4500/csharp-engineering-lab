@@ -13,12 +13,9 @@ using System.Windows.Shapes;
 
 namespace KP
 {
-    /// <summary>
-    /// Логика взаимодействия для Order_form.xaml
-    /// </summary>
-    public partial class Order_form : Page
+    public partial class ShoppingCart : Page
     {
-        public Order_form()
+        public ShoppingCart()
         {
             InitializeComponent();
         }

@@ -13,12 +13,9 @@ using System.Windows.Shapes;
 
 namespace KP
 {
-    /// <summary>
-    /// Логика взаимодействия для Manager_Staff.xaml
-    /// </summary>
-    public partial class Manager_Staff : Page
+    public partial class ManagerStaff : Page
     {
-        public Manager_Staff()
+        public ManagerStaff()
         {
             InitializeComponent();
         }

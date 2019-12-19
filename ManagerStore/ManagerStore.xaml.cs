@@ -13,9 +13,9 @@ using System.Windows.Shapes;
 
 namespace KP
 {
-    public partial class Manager_Store : Page
+    public partial class ManagerStore : Page
     {
-        public Manager_Store()
+        public ManagerStore()
         {
             InitializeComponent();
         }

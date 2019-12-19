@@ -13,9 +13,9 @@ using System.Windows.Shapes;
 
 namespace KP
 {
-    public partial class Main_Manager : Page
+    public partial class MainManager : Page
     {
-        public Main_Manager()
+        public MainManager()
         {
             InitializeComponent();
         }

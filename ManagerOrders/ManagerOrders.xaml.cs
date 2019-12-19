@@ -13,12 +13,9 @@ using System.Windows.Shapes;
 
 namespace KP
 {
-    /// <summary>
-    /// Логика взаимодействия для Manager_Orders.xaml
-    /// </summary>
-    public partial class Manager_Orders : Page
+    public partial class ManagerOrders : Page
     {
-        public Manager_Orders()
+        public ManagerOrders()
         {
             InitializeComponent();
         }
