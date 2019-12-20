@@ -13,7 +13,7 @@ using System.Windows.Shapes;
 
 namespace CoffeeShop
 {
-    public partial class MainManager : Page
+    public partial class MainManager : Window
     {
         public MainManager()
         {

@@ -36,6 +36,8 @@ namespace CoffeeShop
                 {
                     // TODO: продолжаем далее и загружаем правльное для пользователя окно.
                     LoginValidationText = "";
+                    var dialog = new MainManager();
+                    dialog.ShowDialog();
                 }
                 else
                 {
