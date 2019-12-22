@@ -6,9 +6,8 @@
       xmlns:local="clr-namespace:CoffeeShop"
       Height="450" Width="800">
     <Grid>
-        <TabControl Margin="10">
-            <TabItem Header="TabItem"/>
-            <TabItem Header="TabItem"/>
+        <!-- Сюда программно можно добавлять дополнительные вкладки. -->
+        <TabControl Name="Pages" Margin="10">
         </TabControl>
     </Grid>
 </Window>

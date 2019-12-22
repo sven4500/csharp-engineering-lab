@@ -4,10 +4,8 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:CoffeeShop"
-      mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
-      Title="Manager_Staff">
-
+      Height="450" Width="800"
+      Title="Персонал">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="45*"/>
@@ -30,6 +28,5 @@
         <Button Content="Редактировать сотрудника" HorizontalAlignment="Left" Height="26" Margin="597,0,0,0" VerticalAlignment="Center" Width="148" Grid.Row="2"/>
         <Label Content="Поиск сотрудника" HorizontalAlignment="Left" Margin="464,0,0,0" VerticalAlignment="Center"/>
         <TextBox x:Name="Search_Worker" HorizontalAlignment="Left" Margin="610,0,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Center" Width="159" Height="25"/>
-
     </Grid>
 </Page>
