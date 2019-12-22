@@ -4,15 +4,11 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:CoffeeShop"
-      Height="450" Width="800"
-      Title="Main_Manager">
-
+      Height="450" Width="800">
     <Grid>
-        <Button Content="Склад" HorizontalAlignment="Left" Height="101" Margin="112,159,0,0" VerticalAlignment="Top" Width="229"/>
-        <Button Content="Заказы" HorizontalAlignment="Left" Height="101" Margin="112,289,0,0" VerticalAlignment="Top" Width="229"/>
-        <Button Content="Персонал" HorizontalAlignment="Left" Height="101" Margin="450,159,0,0" VerticalAlignment="Top" Width="229"/>
-        <Button Content="Отчеты" HorizontalAlignment="Left" Height="101" Margin="450,289,0,0" VerticalAlignment="Top" Width="229"/>
-        <Label Content="Главное меню (менеджер)" HorizontalAlignment="Center" Height="34" Margin="0,37,0,0" VerticalAlignment="Top" Width="220" FontSize="16" FontWeight="Bold"/>
-
+        <TabControl Margin="10">
+            <TabItem Header="TabItem"/>
+            <TabItem Header="TabItem"/>
+        </TabControl>
     </Grid>
 </Window>

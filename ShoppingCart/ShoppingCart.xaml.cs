@@ -13,7 +13,7 @@ using System.Windows.Shapes;
 
 namespace CoffeeShop
 {
-    public partial class ShoppingCart : Page
+    public partial class ShoppingCart : Window
     {
         public ShoppingCart()
         {

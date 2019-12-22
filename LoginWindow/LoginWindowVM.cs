@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Windows; // Window
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -36,7 +37,20 @@ namespace CoffeeShop
                 {
                     // TODO: продолжаем далее и загружаем правльное для пользователя окно.
                     LoginValidationText = "";
-                    var dialog = new MainManager();
+                    Window dialog = null;
+                    switch (Users.IndexOf(CurrentUser))
+                    { 
+                        case 0:
+                            dialog = new MainManager();
+                            break;
+                        case 1:
+                            dialog = new ShoppingCart();
+                            break;
+                        default:
+                            dialog = null;
+                            break;
+                    }
+                    dialog.Title = "Пользователь: " + CurrentUser;
                     dialog.ShowDialog();
                 }
                 else
