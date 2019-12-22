@@ -14,38 +14,31 @@ namespace CoffeeShop
 
         private Dictionary<string, string> userPassword = new Dictionary<string, string>();
 
+        private XmlAdapter<UserData> xmlAdapter;
+
         // https://stackoverflow.com/questions/3968543/convert-dictionary-to-list-collection-in-c-sharp
         public List<string> Users { get { return userPassword.Select(o => o.Key).ToList(); } }
 
         public LoginWindowModel()
         {
+            xmlAdapter = new XmlAdapter<UserData>((row) =>
+                {
+                    UserData user = new UserData();
+                    user.UserName = Convert.ToString(row["Login"]);
+                    user.Passwrod = Convert.ToString(row["Password"]);
+                    return user;
+                }, (row, value) =>
+                {
+                    row["Login"] = value.UserName;
+                    row["Password"] = value.Passwrod;
+                });
+
+            xmlAdapter.XmlPath = xmlPath;
+            xmlAdapter.DataSetName = "Users";
+            xmlAdapter.TableName = "User";
+            xmlAdapter.ColumnHeaders.AddRange(new[] { "Login", "Password" });
+
             Load();
-        }
-
-        public Dictionary<string, string> Deserizalize(DataSet dataSet)
-        {
-            return dataSet
-                .Tables[0]
-                .AsEnumerable()
-                .Select(row => new Tuple<string, string>(Convert.ToString(row["Login"]), Convert.ToString(row["Password"])))
-                .ToDictionary(o => o.Item1, o => o.Item2);
-        }
-
-        public DataSet Serialize(Dictionary<string, string> userPassword)
-        {
-            DataTable table = new DataTable();
-            table.TableName = "User";
-            table.Columns.Add("Login");
-            table.Columns.Add("Password");
-
-            foreach (KeyValuePair<string, string> entry in userPassword)
-                table.Rows.Add(entry.Key, entry.Value);
-
-            DataSet dataSet = new DataSet();
-            dataSet.DataSetName = "Users";
-            dataSet.Tables.Add(table);
-
-            return dataSet;
         }
 
         public void Update(string login, string password)
@@ -55,15 +48,24 @@ namespace CoffeeShop
 
         public void Save()
         {
-            DataSet dataSet = Serialize(userPassword);
-            dataSet.WriteXml(xmlPath);
+            xmlAdapter.Data = userPassword
+                .Select(o => 
+                {
+                    UserData user = new UserData();
+                    user.UserName = o.Key;
+                    user.Passwrod = o.Value;
+                    return user; 
+                })
+                .ToList();
+            xmlAdapter.Save();
         }
 
         public void Load()
         {
-            DataSet dataSet = new DataSet();
-            dataSet.ReadXml(xmlPath);
-            userPassword = Deserizalize(dataSet);
+            xmlAdapter.Load();
+            userPassword = xmlAdapter
+                .Data
+                .ToDictionary(o => o.UserName, o => o.Passwrod);
         }
 
         public bool Validate(string login, string password)

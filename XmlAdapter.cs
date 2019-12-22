@@ -11,15 +11,17 @@ namespace CoffeeShop
     {
         public string XmlPath { get; set; }
 
-        private string DataSetName { get; set; }
-        private string TableName { get; set; }
-        public List<string> ColumnHeaders { get; set; }
+        public string DataSetName { get; set; }
+        public string TableName { get; set; }
+
+        private List<string> columnHeaders = new List<string>();
+        public List<string> ColumnHeaders { get { return columnHeaders; } }
 
         private List<T> data = null;
-        public List<T> Data { get { return data; } }
+        public List<T> Data { get { return data; } set { data = value; } }
 
         public delegate T OnDeserialize(DataRow row);
-        public delegate DataRow OnSerialize(T value);
+        public delegate void OnSerialize(DataRow row, T value);
 
         protected OnDeserialize onDeserialize;
         protected OnSerialize onSerialize;
@@ -52,7 +54,11 @@ namespace CoffeeShop
                 table.Columns.Add(header);
 
             foreach (T value in data)
-                table.Rows.Add(onSerialize(value));
+            {
+                DataRow row = table.NewRow();
+                onSerialize(row, value);
+                table.Rows.Add(row);
+            }
 
             DataSet dataSet = new DataSet();
             dataSet.DataSetName = DataSetName;

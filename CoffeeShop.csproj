@@ -81,6 +81,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="LoginWindow\UserData.cs" />
     <Compile Include="XmlAdapter.cs" />
     <Page Include="ChangePasswordWindow\ChangePasswordWindow.xaml">
       <SubType>Designer</SubType>
