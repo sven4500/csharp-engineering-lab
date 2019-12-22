@@ -16,7 +16,7 @@
             <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
         <TextBox Name="SearchTextBox" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" HorizontalAlignment="Stretch" Margin="10,0,10,0" TextWrapping="NoWrap" VerticalAlignment="Center" />
-        <DataGrid Name="dgProducts" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" ItemsSource="{Binding StoreRecords}" SelectedItem="{Binding CurrentRecord, Mode=OneWayToSource}" AutoGenerateColumns="False" Margin="10">
+        <DataGrid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" ItemsSource="{Binding StoreRecords}" SelectedItem="{Binding CurrentRecord, Mode=OneWayToSource}" AutoGenerateColumns="False" Margin="10">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Название" Binding="{Binding Name}"/>
                 <DataGridTextColumn Header="Категория" Binding="{Binding Category}"/>

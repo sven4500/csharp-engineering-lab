@@ -15,9 +15,14 @@ namespace CoffeeShop
 {
     public partial class ManagerStaff : Page
     {
+        private ManagerStaffVM viewModel = new ManagerStaffVM();
+
         public ManagerStaff()
         {
             InitializeComponent();
+            DataContext = viewModel;
+            SaveButton.Click += viewModel.Save;
+            RemoveButton.Click += viewModel.Remove;
         }
     }
 }

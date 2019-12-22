@@ -9,7 +9,7 @@ namespace CoffeeShop
 {
     class ManagerStoreModel
     {
-        static private string xmlPath = "./store.xml";
+        private readonly string xmlPath = "./store.xml";
 
         private readonly XmlAdapter<StoreRecord> xmlAdapter = new XmlAdapter<StoreRecord>(row =>
             {
