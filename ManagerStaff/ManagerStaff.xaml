@@ -7,12 +7,17 @@
       Height="450" Width="800"
       Title="Персонал">
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="7*"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="45*"/>
-            <RowDefinition Height="322*"/>
-            <RowDefinition Height="83*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="7*"/>
+            <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
-        <DataGrid Grid.Row="1" Grid.Column="0" Name="dgProducts" AutoGenerateColumns="False" ItemsSource="{Binding Products}"  Width="Auto" Margin="20,20,20,20" Height="Auto">
+        <DataGrid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Name="StaffDataGrid" AutoGenerateColumns="False" ItemsSource="{Binding Products}" Margin="10" >
             <DataGrid.Columns>
                 <DataGridTextColumn Header="ID" Width="90" IsReadOnly="True" />
                 <DataGridTextColumn Header="Имя" Width="110" IsReadOnly="True" />
@@ -23,10 +28,7 @@
                 <DataGridTextColumn  Header="Телефон" Width="120" IsReadOnly="True" />
             </DataGrid.Columns>
         </DataGrid>
-        <Button Content="Вернуться в меню" HorizontalAlignment="Left" Height="25" Margin="41,0,0,0" VerticalAlignment="Center" Width="148"/>
-        <Button Content="Добавить сотрудника" HorizontalAlignment="Left" Height="25" Margin="41,0,0,0" VerticalAlignment="Center" Width="148" Grid.Row="2"/>
-        <Button Content="Редактировать сотрудника" HorizontalAlignment="Left" Height="26" Margin="597,0,0,0" VerticalAlignment="Center" Width="148" Grid.Row="2"/>
-        <Label Content="Поиск сотрудника" HorizontalAlignment="Left" Margin="464,0,0,0" VerticalAlignment="Center"/>
-        <TextBox x:Name="Search_Worker" HorizontalAlignment="Left" Margin="610,0,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Center" Width="159" Height="25"/>
+        <Button Content="Удалить" Grid.Column="2" Grid.Row="2" Margin="10,0,10,0" VerticalAlignment="Center" HorizontalAlignment="Stretch"/>
+        <TextBox Name="SearchTextBox" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" HorizontalAlignment="Stretch" Margin="10,0,10,0" TextWrapping="NoWrap" VerticalAlignment="Center" />
     </Grid>
 </Page>
