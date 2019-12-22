@@ -6,8 +6,18 @@
       xmlns:local="clr-namespace:CoffeeShop"
       Height="450" Width="800">
     <Grid>
-        <!-- Сюда программно можно добавлять дополнительные вкладки. -->
+        <!-- Сюда можно добавлять дополнительные вкладки. -->
         <TabControl Name="Pages" Margin="10">
+            <!-- https://social.msdn.microsoft.com/Forums/en-US/be750167-a49d-4346-891e-7d1c67aa34ae/sizing-pagexaml-to-fit-inside-the-frame?forum=wpf -->
+            <TabItem Header="Склад">
+                <Frame Source="../ManagerStore/ManagerStore.xaml"/>
+            </TabItem>
+            <TabItem Header="Персонал">
+                <Frame Source="../ManagerStaff/ManagerStaff.xaml"/>
+            </TabItem>
+            <TabItem Header="Заказы">
+                <Frame Source="../ManagerOrders/ManagerOrders.xaml"/>
+            </TabItem>
         </TabControl>
     </Grid>
 </Window>
