@@ -16,15 +16,16 @@
             <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
         <TextBox Name="SearchTextBox" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" HorizontalAlignment="Stretch" Margin="10,0,10,0" TextWrapping="NoWrap" VerticalAlignment="Center" />
-        <DataGrid Name="dgProducts" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" AutoGenerateColumns="False" ItemsSource="{Binding Products}" Margin="10">
+        <DataGrid Name="dgProducts" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" ItemsSource="{Binding StoreRecords}" SelectedItem="{Binding CurrentRecord, Mode=OneWayToSource}" AutoGenerateColumns="False" Margin="10">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Имя" Width="200" IsReadOnly="True" />
-                <DataGridTextColumn  Header="Цена" Width="100" IsReadOnly="True" />
-                <DataGridTextColumn  Header="Категория" Width="200" IsReadOnly="True" />
-                <DataGridTextColumn  Header="Количество" Width="100" IsReadOnly="True" />
-                <DataGridTextColumn  Header="Единицы" Width="150" IsReadOnly="True" />
+                <DataGridTextColumn Header="Название" Binding="{Binding Name}"/>
+                <DataGridTextColumn Header="Категория" Binding="{Binding Category}"/>
+                <DataGridTextColumn Header="Производитель" Binding="{Binding Manufacturer}"/>
+                <DataGridTextColumn Header="Количество" Binding="{Binding Count}"/>
+                <DataGridTextColumn Header="Цена" Binding="{Binding Price}"/>
             </DataGrid.Columns>
         </DataGrid>
         <Button Name="RemoveButton" Grid.Row="2" Grid.Column="2" Content="Удалить" Margin="10,0,10,0" VerticalAlignment="Center" HorizontalAlignment="Stretch"/>
+        <Button Name="SaveButton" Grid.Row="2" Grid.Column="1" Content="Сохранить" Margin="10,0,10,0" VerticalAlignment="Center" HorizontalAlignment="Stretch"/>
     </Grid>
 </Page>

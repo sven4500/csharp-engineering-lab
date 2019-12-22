@@ -15,9 +15,16 @@ namespace CoffeeShop
 {
     public partial class ManagerStore : Page
     {
+        // ѕочему-то среда разваливаетс€ если контекст данных определ€ем в XAML так что делаем программно.
+        private readonly ManagerStoreVM modelVM = new ManagerStoreVM();
+
         public ManagerStore()
         {
             InitializeComponent();
+            DataContext = modelVM;
+            SaveButton.Click += modelVM.Save;
+            RemoveButton.Click += modelVM.Remove;
         }
+
     }
 }
