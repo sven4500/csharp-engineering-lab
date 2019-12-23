@@ -1,0 +1,11 @@
+<?xml version="1.0" standalone="yes"?>
+<Bill>
+  <Position>
+    <Id>0</Id>
+    <Name>Чай (зелёный)</Name>
+    <Manufacturer>Китай</Manufacturer>
+    <Count>10,000</Count>
+    <Price>5,50</Price>
+    <PriceTotal>55,00000</PriceTotal>
+  </Position>
+</Bill>
