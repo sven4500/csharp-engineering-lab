@@ -11,7 +11,9 @@ namespace CoffeeShop
     {
         private readonly string xmlPath = "./store.xml";
 
-        private readonly XmlAdapter<StoreRecord> xmlAdapter = new XmlAdapter<StoreRecord>(row =>
+        private readonly XmlAdapter<StoreRecord> xmlAdapter = new XmlAdapter<StoreRecord>(
+            new[] { "Name", "Category", "Manufacturer", "Count", "Price" },
+            (row) =>
             {
                 StoreRecord record = new StoreRecord();
                 record.Category = Convert.ToString(row["Category"]);
@@ -20,7 +22,8 @@ namespace CoffeeShop
                 record.Name = Convert.ToString(row["Name"]);
                 record.Price = Convert.ToDecimal(row["Price"]);
                 return record;
-            }, (row, value) =>
+            },
+            (row, value) =>
             {
                 row["Category"] = value.Category;
                 row["Count"] = value.Count;
@@ -35,7 +38,6 @@ namespace CoffeeShop
         public ManagerStoreModel()
         {
             xmlAdapter.XmlPath = xmlPath;
-            xmlAdapter.ColumnHeaders.AddRange(new[] { "Name", "Category", "Manufacturer", "Count", "Price" });
             xmlAdapter.TableName = "Record";
             xmlAdapter.DataSetName = "StoreRecords";
             xmlAdapter.Load();

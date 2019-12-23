@@ -14,20 +14,20 @@ namespace CoffeeShop
         public string DataSetName { get; set; }
         public string TableName { get; set; }
 
-        private List<string> columnHeaders = new List<string>();
-        public List<string> ColumnHeaders { get { return columnHeaders; } }
-
+        private readonly string[] columnHeaders;
+        
         private List<T> data = null;
         public List<T> Data { get { return data; } set { data = value; } }
 
         public delegate T OnDeserialize(DataRow row);
         public delegate void OnSerialize(DataRow row, T value);
 
-        protected OnDeserialize onDeserialize;
-        protected OnSerialize onSerialize;
+        private readonly OnDeserialize onDeserialize;
+        private readonly OnSerialize onSerialize;
 
-        public XmlAdapter(OnDeserialize onDeserialize, OnSerialize onSerialize)
+        public XmlAdapter(string[] columnHeaders, OnDeserialize onDeserialize, OnSerialize onSerialize)
         {
+            this.columnHeaders = columnHeaders;
             this.onDeserialize = onDeserialize;
             this.onSerialize = onSerialize;
         }
@@ -50,7 +50,7 @@ namespace CoffeeShop
             DataTable table = new DataTable();
             table.TableName = TableName;
 
-            foreach (string header in ColumnHeaders)
+            foreach (string header in columnHeaders)
                 table.Columns.Add(header);
 
             foreach (T value in data)

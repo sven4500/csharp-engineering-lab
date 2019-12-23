@@ -88,7 +88,10 @@
     <Compile Include="ManagerStore\ManagerStoreModel.cs" />
     <Compile Include="ManagerStore\StoreRecord.cs" />
     <Compile Include="ManagerStore\ManagerStoreVM.cs" />
-    <Compile Include="XmlAdapter.cs" />
+    <Compile Include="ShoppingCart\CartRecord.cs" />
+    <Compile Include="ShoppingCart\ShoppingCartModel.cs" />
+    <Compile Include="ShoppingCart\ShoppingCartVM.cs" />
+    <Compile Include="XmlAdapter\XmlAdapter.cs" />
     <Page Include="ChangePasswordWindow\ChangePasswordWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -178,6 +181,7 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -21,13 +21,16 @@ namespace CoffeeShop
 
         public LoginWindowModel()
         {
-            xmlAdapter = new XmlAdapter<UserData>((row) =>
+            xmlAdapter = new XmlAdapter<UserData>(
+                new[] { "Login", "Password" },
+                (row) =>
                 {
                     UserData user = new UserData();
                     user.UserName = Convert.ToString(row["Login"]);
                     user.Passwrod = Convert.ToString(row["Password"]);
                     return user;
-                }, (row, value) =>
+                },
+                (row, value) =>
                 {
                     row["Login"] = value.UserName;
                     row["Password"] = value.Passwrod;
@@ -36,7 +39,6 @@ namespace CoffeeShop
             xmlAdapter.XmlPath = xmlPath;
             xmlAdapter.DataSetName = "Users";
             xmlAdapter.TableName = "User";
-            xmlAdapter.ColumnHeaders.AddRange(new[] { "Login", "Password" });
 
             Load();
         }

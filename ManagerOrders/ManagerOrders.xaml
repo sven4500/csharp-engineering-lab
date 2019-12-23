@@ -17,13 +17,12 @@
         </Grid.RowDefinitions>
         <DataGrid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Name="dgProducts" AutoGenerateColumns="False" ItemsSource="{Binding Products}"  Width="Auto" Margin="10" Height="Auto">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Номер чека" Width="90" IsReadOnly="True" />
-                <DataGridTextColumn Header="Дата" Width="110" IsReadOnly="True" />
-                <DataGridTextColumn  Header="ID сотрудника" Width="110" IsReadOnly="True" />
-                <DataGridTextColumn  Header="Всего позиций" Width="110" IsReadOnly="True" />
-                <DataGridTextColumn  Header="Сумма заказа" Width="110" IsReadOnly="True" />
-                <DataGridTextColumn  Header="Статус заказа" Width="110" IsReadOnly="True" />
-                <DataGridTextColumn  Header="Комментарии" Width="120" IsReadOnly="True" />
+                <DataGridTextColumn Header="Номер чека"/>
+                <DataGridTextColumn Header="Дата"/>
+                <DataGridTextColumn Header="Всего позиций"/>
+                <DataGridTextColumn Header="Сумма заказа"/>
+                <DataGridTextColumn  Header="Статус заказа"/>
+                <DataGridTextColumn  Header="Комментарии"/>
             </DataGrid.Columns>
         </DataGrid>
         <TextBox Name="Search_order" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" Margin="10" TextWrapping="NoWrap" HorizontalAlignment="Stretch" VerticalAlignment="Center"/>
