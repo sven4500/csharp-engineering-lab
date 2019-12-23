@@ -39,7 +39,22 @@ namespace CoffeeShop
             } 
             set 
             { 
-                count = value;
+                if(value < count)
+                {
+                    decimal diff = count - value;
+                    count = value;
+                    StoreRecord.Count += diff;
+                }
+                else if (value > count)
+                {
+                    decimal diff = value - count;
+                    if (diff <= StoreRecord.Count)
+                    {
+                        count = value;
+                        StoreRecord.Count -= diff;
+                    }
+                }
+
                 priceTotal = storeRecord.Price * count;
                 OnPropertyChanged("PriceTotal");
             } 

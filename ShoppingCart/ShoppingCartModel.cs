@@ -35,6 +35,10 @@ namespace CoffeeShop
                 row["PriceTotal"] = value.PriceTotal;
             });
 
+        // Используем модель менеджера для того чтобы загрузить список всех возможных товаров.
+        private readonly ManagerStoreModel managerStoreModel = new ManagerStoreModel();
+        public ManagerStoreModel ManagerStoreModel { get { return managerStoreModel; } }
+
         private readonly ObservableCollection<CartRecord> records = new ObservableCollection<CartRecord>();
         public ObservableCollection<CartRecord> Records { get { return records; } }
 
@@ -57,6 +61,11 @@ namespace CoffeeShop
                 xmlAdapter.XmlPath = dialog.FileName;
                 xmlAdapter.Data = records.ToList();
                 xmlAdapter.Save();
+
+                // Обновляем информацию на складе. Так как везде используем ссылки, то не нужно желать ничего для актуализации информации.
+                // Просто сохраняем данные в магазин.
+                managerStoreModel.Save();
+
                 records.Clear();
             }
         }
