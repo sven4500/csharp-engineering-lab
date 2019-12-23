@@ -46,9 +46,19 @@ namespace CoffeeShop
 
         public void Create()
         {
-            xmlAdapter.XmlPath = "./bill.xml";
-            xmlAdapter.Data = records.ToList();
-            xmlAdapter.Save();
+            // https://stackoverflow.com/questions/5622854/how-do-i-show-a-save-as-dialog-in-wpf
+            Microsoft.Win32.SaveFileDialog dialog = new Microsoft.Win32.SaveFileDialog();
+            dialog.FileName = "bill";
+            dialog.DefaultExt = ".xml";
+            dialog.Filter = "XML files|*.xml";
+
+            if (dialog.ShowDialog() == true)
+            {
+                xmlAdapter.XmlPath = dialog.FileName;
+                xmlAdapter.Data = records.ToList();
+                xmlAdapter.Save();
+                records.Clear();
+            }
         }
 
     }
