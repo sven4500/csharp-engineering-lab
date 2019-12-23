@@ -33,5 +33,7 @@
         </DataGrid>
         <Button Name="RemoveButton" Content="Удалить" HorizontalAlignment="Stretch" VerticalAlignment="Center" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Margin="10,0,10,0"/>
         <Button Name="CreateButton"  Content="Создать" HorizontalAlignment="Stretch" VerticalAlignment="Center" Grid.Row="1" Grid.Column="3" Grid.ColumnSpan="2" Margin="10,0,10,0"/>
+        <Label Content="Итог: " HorizontalAlignment="Left" Margin="10,0,0,10" VerticalAlignment="Bottom" Grid.RowSpan="2"/>
+        <Label Content="{Binding PriceTotal, Mode=OneWay}" HorizontalAlignment="Left" Margin="51,0,0,10" VerticalAlignment="Bottom" Grid.RowSpan="2"/>
     </Grid>
 </Window>

@@ -17,6 +17,9 @@ namespace CoffeeShop
 
         public void Save()
         { }
+        
+        public void Load()
+        { }
 
     }
 }

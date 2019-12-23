@@ -4,11 +4,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Collections.ObjectModel; // ObservableCollection
+using System.ComponentModel; // INotifyPropertyChanged
 
 namespace CoffeeShop
 {
-    class ShoppingCartVM
+    class ShoppingCartVM : INotifyPropertyChanged
     {
+        public event PropertyChangedEventHandler PropertyChanged;
+        protected void OnPropertyChanged(string propertyName)
+        {
+            if (PropertyChanged != null)
+                PropertyChanged.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
         private readonly ShoppingCartModel model = new ShoppingCartModel();
 
         // Используем модель менеджера для того чтобы загрузить список всех возможных товаров.
@@ -19,6 +27,9 @@ namespace CoffeeShop
         public ObservableCollection<CartRecord> Records { get { return model.Records; } }
 
         public CartRecord CurrentRecord { get; set; }
+
+        private decimal priceTotal = 0.0m;
+        public string PriceTotal { get { return priceTotal.ToString(); } }
         
         public void RemoveButtonClick(object sender, EventArgs e)
         {
@@ -30,10 +41,18 @@ namespace CoffeeShop
             model.Save();
         }
 
+        public void CalculateTotal(object sender, EventArgs e)
+        {
+            priceTotal = 0.0m;
+            foreach (CartRecord record in Records)
+                priceTotal += record.PriceTotal;
+            OnPropertyChanged("PriceTotal");
+        }
+
         public void EnumerateElements(object sender, EventArgs e)
         {
             int i = 0;
-            foreach(CartRecord record in Records)
+            foreach (CartRecord record in Records)
                 record.Id = i++;
         }
 

@@ -18,6 +18,7 @@ namespace CoffeeShop
         public ShoppingCart()
         {
             InitializeComponent();
+            CartGrid.CurrentCellChanged += ViewModel.CalculateTotal;
             RemoveButton.Click += ViewModel.RemoveButtonClick;
             CreateButton.Click += ViewModel.CreateButtonClick;
         }
