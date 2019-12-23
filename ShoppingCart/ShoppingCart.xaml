@@ -19,7 +19,7 @@
             <RowDefinition Height="9*"/>
             <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
-        <DataGrid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="5" AutoGenerateColumns="False" SelectedItem="{Binding Path=CurrentRecord}" ItemsSource="{Binding Path=Records, Source={x:Reference Name=ViewModel}}" Margin="10" IsReadOnly="False">
+        <DataGrid Name="CartGrid" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="5" AutoGenerateColumns="False" SelectedItem="{Binding Path=CurrentRecord}" ItemsSource="{Binding Path=Records, Source={x:Reference Name=ViewModel}}" Margin="10" IsReadOnly="False">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Id" Binding="{Binding Path=Id}" IsReadOnly="True"/>
                 <!-- https://stackoverflow.com/questions/18580036/datagridcomboboxcolumn-binding-to-a-liststring -->

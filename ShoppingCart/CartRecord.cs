@@ -17,7 +17,18 @@ namespace CoffeeShop
         }
 
         private int id;
-        public int Id { get { return id; } set { id = value; } }
+        public int Id 
+        {
+            get 
+            { 
+                return id; 
+            } 
+            set 
+            { 
+                id = value;
+                OnPropertyChanged("Id");
+            } 
+        }
 
         private decimal count = 0.000m;
         public decimal Count

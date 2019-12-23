@@ -30,8 +30,18 @@ namespace CoffeeShop
             model.Save();
         }
 
+        public void EnumerateElements(object sender, EventArgs e)
+        {
+            int i = 0;
+            foreach(CartRecord record in Records)
+                record.Id = i++;
+        }
+
         public ShoppingCartVM()
-        { }
+        {
+            // https://stackoverflow.com/questions/11293607/does-wpf-datagrid-fire-an-event-when-a-row-is-added-removed/41667368
+            Records.CollectionChanged += EnumerateElements;
+        }
 
     }
 }
