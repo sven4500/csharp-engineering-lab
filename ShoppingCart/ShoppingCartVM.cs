@@ -17,10 +17,17 @@ namespace CoffeeShop
         public ObservableCollection<StoreRecord> AvailableProducts { get { return managerStoreModel.Records; } }
 
         public ObservableCollection<CartRecord> Records { get { return model.Records; } }
+
+        public CartRecord CurrentRecord { get; set; }
         
-        public void OnClick(object sender, EventArgs e)
+        public void RemoveButtonClick(object sender, EventArgs e)
         {
-            int a = 0;
+            Records.Remove(CurrentRecord);
+        }
+
+        public void CreateButtonClick(object sender, EventArgs e)
+        {
+            model.Save();
         }
 
         public ShoppingCartVM()

@@ -7,14 +7,14 @@ using System.ComponentModel; // INotifyPropertyChanged
 
 namespace CoffeeShop
 {
-    class CartRecord /*: INotifyPropertyChanged*/
+    class CartRecord : INotifyPropertyChanged
     {
-        /*public event PropertyChangedEventHandler PropertyChanged;
+        public event PropertyChangedEventHandler PropertyChanged;
         protected void OnPropertyChanged(string propertyName)
         {
             if (PropertyChanged != null)
                 PropertyChanged.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }*/
+        }
 
         private int id;
         public int Id { get { return id; } set { id = value; } }
@@ -30,7 +30,7 @@ namespace CoffeeShop
             { 
                 count = value;
                 priceTotal = storeRecord.Price * count;
-                //OnPropertyChanged("PriceTotal");
+                OnPropertyChanged("PriceTotal");
             } 
         }
 
@@ -48,6 +48,7 @@ namespace CoffeeShop
             { 
                 storeRecord = value;
                 Count = Count;
+                OnPropertyChanged("StoreRecord");
             } 
         }
 

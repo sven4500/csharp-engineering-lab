@@ -15,5 +15,8 @@ namespace CoffeeShop
         public ShoppingCartModel()
         { }
 
+        public void Save()
+        { }
+
     }
 }
