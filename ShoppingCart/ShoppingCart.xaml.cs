@@ -18,6 +18,7 @@ namespace CoffeeShop
         public ShoppingCart()
         {
             InitializeComponent();
+            CreateButton.Click += ViewModel.OnClick;
         }
 
     }

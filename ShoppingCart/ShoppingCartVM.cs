@@ -14,15 +14,17 @@ namespace CoffeeShop
         // Используем модель менеджера для того чтобы загрузить список всех возможных товаров.
         private readonly ManagerStoreModel managerStoreModel = new ManagerStoreModel();
 
-        private readonly List<string> products;
-        public List<string> Products { get { return products; } }
+        public ObservableCollection<StoreRecord> AvailableProducts { get { return managerStoreModel.Records; } }
 
         public ObservableCollection<CartRecord> Records { get { return model.Records; } }
+        
+        public void OnClick(object sender, EventArgs e)
+        {
+            int a = 0;
+        }
 
         public ShoppingCartVM()
-        {
-            products = managerStoreModel.Records.Select(o => o.Name + " / " + o.Manufacturer).ToList();
-        }
+        { }
 
     }
 }
