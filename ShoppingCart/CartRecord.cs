@@ -46,7 +46,7 @@ namespace CoffeeShop
         }
 
         private decimal priceTotal = 0.00m;
-        public decimal PriceTotal { get { return priceTotal; } }
+        public decimal PriceTotal { get { return priceTotal; } set { priceTotal = value; } }
 
         private StoreRecord storeRecord;
         public StoreRecord StoreRecord

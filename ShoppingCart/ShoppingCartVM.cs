@@ -38,7 +38,7 @@ namespace CoffeeShop
 
         public void CreateButtonClick(object sender, EventArgs e)
         {
-            model.Save();
+            model.Create();
         }
 
         public void CalculateTotal(object sender, EventArgs e)

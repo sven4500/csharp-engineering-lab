@@ -15,9 +15,6 @@
             <TabItem Header="Персонал">
                 <Frame Source="../ManagerStaff/ManagerStaff.xaml"/>
             </TabItem>
-            <TabItem Header="Заказы">
-                <Frame Source="../ManagerOrders/ManagerOrders.xaml"/>
-            </TabItem>
         </TabControl>
     </Grid>
 </Window>
