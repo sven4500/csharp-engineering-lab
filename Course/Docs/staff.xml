@@ -1,0 +1,12 @@
+<?xml version="1.0" standalone="yes"?>
+<Staff>
+  <Member>
+    <Id>0</Id>
+    <LastName>Иванов</LastName>
+    <FirstName>Иван</FirstName>
+    <MiddleName>Петрович</MiddleName>
+    <ContactNumber />
+    <Position />
+    <EmploymentDate>01.01.0001 0:00:00</EmploymentDate>
+  </Member>
+</Staff>

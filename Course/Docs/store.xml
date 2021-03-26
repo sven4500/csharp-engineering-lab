@@ -1,0 +1,24 @@
+<?xml version="1.0" standalone="yes"?>
+<StoreRecords>
+  <Record>
+    <Name>Чай (зелёный)</Name>
+    <Category>Чай</Category>
+    <Manufacturer>Китай</Manufacturer>
+    <Count>990,000</Count>
+    <Price>5,50</Price>
+  </Record>
+  <Record>
+    <Name>Чай (зелёный)</Name>
+    <Category>Чай</Category>
+    <Manufacturer>Япония</Manufacturer>
+    <Count>1275</Count>
+    <Price>27,45</Price>
+  </Record>
+  <Record>
+    <Name>Чай (чёрный)</Name>
+    <Category>Чай</Category>
+    <Manufacturer>Китай</Manufacturer>
+    <Count>164</Count>
+    <Price>15,25</Price>
+  </Record>
+</StoreRecords>

@@ -1,0 +1,11 @@
+<?xml version="1.0" standalone="yes"?>
+<Users>
+  <User>
+    <Login>Администратор</Login>
+    <Password>153</Password>
+  </User>
+  <User>
+    <Login>Официант</Login>
+    <Password>1234</Password>
+  </User>
+</Users>
